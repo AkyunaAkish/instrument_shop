@@ -1,1 +1,15 @@
 @import 'variables';
+
+body {
+    background-color: $wheat !important;
+}
+
+.main-stage-container {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: calc(100% - 255px);
+    height: 100vh;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}

@@ -1,5 +1,5 @@
 const app = require('./server.js');
-const debug = require('debug')('instrument_shop:server');
+const debug = require('debug')('ya_quddus:server');
 const http = require('http');
 
 const port = normalizePort(process.env.PORT || '3000');
