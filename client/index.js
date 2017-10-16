@@ -31,7 +31,7 @@ const muiTheme = getMuiTheme({
         primary1Color: 'rgb(245, 222, 179)',
         primary2Color: 'rgb(245, 222, 179)',
         primary3Color: 'rgb(245, 222, 179)',
-        accent1Color: 'rgb(245, 222, 179)',
+        accent1Color: '#282C34',
         accent2Color: 'rgb(245, 222, 179)',
         accent3Color: 'rgb(245, 222, 179)',
         textColor: 'rgb(245, 222, 179)',

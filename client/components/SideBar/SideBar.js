@@ -7,6 +7,7 @@ import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import Stars from 'material-ui/svg-icons/action/stars';
 import Cart from 'material-ui/svg-icons/action/shopping-cart';
 import Bagel from 'material-ui/svg-icons/image/adjust';
+import People from 'material-ui/svg-icons/social/people';
 
 class SideBar extends PureComponent {
     constructor(props) {
@@ -26,6 +27,7 @@ class SideBar extends PureComponent {
                     <MenuItem primaryText='Bagels' leftIcon={<Bagel /> } />
                     <MenuItem primaryText='Shopping Cart' leftIcon={<Cart /> } />
                     <MenuItem primaryText='Reviews' leftIcon={<Stars /> } />
+                    <MenuItem primaryText='Contact' leftIcon={<People /> } />
                 </Drawer>   
             </div>
         );
