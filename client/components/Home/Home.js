@@ -3,28 +3,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import FontIcon from 'material-ui/FontIcon';
 
+import BagelGrid from '../BagelGrid/BagelGrid';
+
 class Home extends PureComponent {
     constructor(props) {
         super(props);
     }
 
     render() {
-        const styles = {
-            button: {
-                margin: 12,
-            },
-            exampleImageInput: {
-                cursor: 'pointer',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                width: '100%',
-                opacity: 0,
-            },
-        };
-
         return (
             <div className='home-container'>
                 <div className='home-img-container'>
@@ -67,6 +53,8 @@ class Home extends PureComponent {
                     
                     <img className='home-img' src='/images/food-sunset-love-field-shorter.jpg' />
                 </div>
+
+                <BagelGrid />
             </div>
         );
     }
