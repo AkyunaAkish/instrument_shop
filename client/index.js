@@ -17,6 +17,7 @@ import reducers from './reducers/rootReducer';
 
 import './sass/style.scss';
 import 'bootstrap-loader';
+import 'font-awesome/css/font-awesome.min.css';
 
 const dev = NODE_ENV === 'development';
 
