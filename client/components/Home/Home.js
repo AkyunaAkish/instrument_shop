@@ -45,7 +45,7 @@ class Home extends PureComponent {
                             style={{ margin: 12 }}
                             rippleStyle={{ backgroundColor: 'rgba(255, 255, 255, .5)' }}
                             icon={
-                                    <i style={{ fontSize: 20, color: 'rgb(255,255,255)' }} 
+                                    <i style={{ fontSize: 17, color: 'rgb(255,255,255)' }} 
                                        className='fa fa-facebook-square'></i>
                                  }
                         />
@@ -54,12 +54,13 @@ class Home extends PureComponent {
                             target='_blank'
                             label='Follow us on Instagram'
                             labelColor='rgb(255, 255, 255)'
-                            backgroundColor='rgb(139,157,195)'
+                            backgroundColor=' #e95950'
                             style={{ margin: 12 }}
                             rippleStyle={{ backgroundColor: 'rgba(255, 255, 255, .5)' }}
                             icon={
-                                <i style={{ fontSize: 20, color: 'rgb(255,255,255)' }}
+                                <i style={{ fontSize: 17, color: 'rgb(255,255,255)' }}
                                     className='fa fa-instagram'></i>
+                                
                             }
                         />                 
                     </div>
