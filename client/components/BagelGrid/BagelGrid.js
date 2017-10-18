@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 
+import RaisedButton from 'material-ui/RaisedButton';
+import { Thumbnail, Button } from 'react-bootstrap';
 
 class BagelGrid extends PureComponent {
     constructor(props) {
@@ -9,7 +11,18 @@ class BagelGrid extends PureComponent {
     render() {
         return (
             <div className='bagel-grid-container'>
-                <h1>The Bagel Grid Will Go Here</h1>
+                <Thumbnail className='bagel-grid-item' src="/images/ya_quddus_bagels_logo.jpg">
+                    <h3>Bagel Name</h3>
+                    <p>
+                        <RaisedButton
+                            label='Add to Cart'
+                            style={{ marginRight: 10 }}
+                        />
+                        <RaisedButton
+                            label='View Info'
+                        />
+                    </p>
+                </Thumbnail>
             </div>
         );
     }

@@ -37,7 +37,7 @@ const muiTheme = getMuiTheme({
         accent2Color: 'rgb(245, 222, 179)',
         accent3Color: 'rgb(245, 222, 179)',
         textColor: 'rgb(245, 222, 179)',
-        alternateTextColor: 'rgb(245, 222, 179)',
+        alternateTextColor: '#282C34',
         canvasColor: '#282C34',
         borderColor: 'rgb(245, 222, 179)',
         disabledColor: 'rgb(245, 222, 179)',
