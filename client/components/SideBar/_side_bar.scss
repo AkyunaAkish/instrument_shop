@@ -32,4 +32,10 @@
             }
         }        
     }
+
+    @media (max-width: 1012px) { 
+        & {
+            display: none;
+        }
+     }
 }

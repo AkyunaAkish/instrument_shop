@@ -11,4 +11,15 @@
         height: 320px;
         background-color: $yellowish_white;
     } 
+
+     @media (max-width: 1012px) { 
+         //TODO: create media queries to 
+         // keep bagel grid centered
+         // and the maximum amount of grid items
+         // showing at a time based on width of the window
+         // and whether or not the side bar is open
+        // & {
+        //     width: 1000px;
+        // }
+     }
 }

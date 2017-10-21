@@ -36,4 +36,10 @@
             height: 270px;
         }
     }
+
+    @media (max-width: 1012px) { 
+        &, .home-img-backdrop, .home-img-text {
+            margin-top: 62px;
+        }
+     }
 }

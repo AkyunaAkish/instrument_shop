@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import Stars from 'material-ui/svg-icons/action/stars';
 import Cart from 'material-ui/svg-icons/action/shopping-cart';
 import Bagel from 'material-ui/svg-icons/image/adjust';

@@ -30,20 +30,20 @@ const store = dev ? createStoreWithMiddleware(reducers,
 
 const muiTheme = getMuiTheme({
     palette: {
-        primary1Color: 'rgb(233,218,196)',
+        primary1Color: 'rgb(70,62,63)',
         primary2Color: 'rgb(233,218,196)',
         primary3Color: 'rgb(233,218,196)',
         accent1Color: 'rgb(70,62,63)',
         accent2Color: 'rgb(233,218,196)',
         accent3Color: 'rgb(233,218,196)',
         textColor: 'rgb(233,218,196)',
-        alternateTextColor: 'rgb(70,62,63)',
+        alternateTextColor: 'rgb(233,218,196)',
         canvasColor: 'rgb(70,62,63)',
         borderColor: 'rgb(233,218,196)',
-        disabledColor: 'rgb(233,218,196)',
-        pickerHeaderColor: 'rgb(233,218,196)',
-        clockCircleColor: 'rgb(233,218,196)',
-        shadowColor: 'rgb(233,218,196)',
+        disabledColor: 'rgb(70,62,63)',
+        pickerHeaderColor: 'rgb(70,62,63)',
+        clockCircleColor: 'rgb(70,62,63)',
+        shadowColor: 'rgb(70,62,63)',
     }
 });
 

@@ -11,17 +11,19 @@ class BagelGrid extends PureComponent {
     renderBagels() {
         return this.props.bagels.map((bagel, ind) => {
             return (
-                <Thumbnail key={ ind } className='bagel-grid-item text-left' src={ bagel.img }>
+                <Thumbnail key={ ind } className='bagel-grid-item text-left shadow' src={ bagel.img }>
                     <h3>{ bagel.type }</h3>
-                    <p>
+                    <div>
                         <RaisedButton
                             label='Add to Cart'
+                            backgroundColor='rgb(70,62,63)'
                             style={{ marginRight: 10 }}
                         />
                         <RaisedButton
                             label='View Info'
+                            backgroundColor='rgb(70,62,63)'
                         />
-                    </p>
+                    </div>
                 </Thumbnail>
             );
         });
@@ -29,7 +31,7 @@ class BagelGrid extends PureComponent {
 
     render() {
         return (
-            <div className='bagel-grid-container text-center'>
+            <div className='bagel-grid-container margin-center'>
                 { this.renderBagels() }
             </div>
         );

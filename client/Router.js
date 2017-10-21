@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { asyncComponent } from 'react-async-component';
 
+import TopBar from './components/TopBar/TopBar';
 import SideBar from './components/SideBar/SideBar';
 
 const Home = asyncComponent({
@@ -17,6 +18,7 @@ class Router extends PureComponent {
         return (
             <BrowserRouter>
                 <div>
+                    <TopBar />
                     <SideBar />
                     
                     <div className='main-stage-container'>
