@@ -41,10 +41,6 @@ module.exports = webpackMerge(commonConfig, {
             template: './client/index.prod.html'
         }),
         new CopyWebpackPlugin([{
-            from: helpers.root('./client/d3.js'),
-            to: helpers.root('dist/d3.js')
-        }]),
-        new CopyWebpackPlugin([{
             from: helpers.root('./client/images'),
             to: helpers.root('dist/images')
         }]),
