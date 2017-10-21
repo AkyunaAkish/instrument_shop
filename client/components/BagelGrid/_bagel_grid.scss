@@ -1,10 +1,14 @@
-.bagel-grid-container {
-   .bagel-grid-item {
-       img {
-           height: 200px;
-       }
-       
-       width: 350px;
-       height: 320px;
-   } 
+.bagel-grid-container {        
+    .bagel-grid-item {
+        display: inline-block;
+        margin: 10px;
+        
+        img {
+            height: 200px;
+        }
+        
+        width: 350px;
+        height: 320px;
+        background-color: $yellowish_white;
+    } 
 }

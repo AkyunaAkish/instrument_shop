@@ -8,6 +8,35 @@ import BagelGrid from '../BagelGrid/BagelGrid';
 class Home extends PureComponent {
     constructor(props) {
         super(props);
+
+        this.state = {
+            bagels: [
+                {
+                    type: 'Whole Wheat',
+                    img: '/images/ya_quddus_bagels_logo.jpg'
+                },
+                {
+                    type: 'Marble Rye',
+                    img: '/images/ya_quddus_bagels_logo.jpg'
+                },
+                {
+                    type: 'Sesame',
+                    img: '/images/ya_quddus_bagels_logo.jpg'
+                },
+                {
+                    type: 'Pumpernickel',
+                    img: '/images/ya_quddus_bagels_logo.jpg'
+                },
+                {
+                    type: '7 Seed',
+                    img: '/images/ya_quddus_bagels_logo.jpg'
+                },
+                {
+                    type: 'Jalapeno',
+                    img: '/images/ya_quddus_bagels_logo.jpg'
+                }
+            ]
+        };
     }
 
     render() {
@@ -29,9 +58,9 @@ class Home extends PureComponent {
                             labelColor='rgb(255, 255, 255)'
                             backgroundColor='rgb(59,89,152)'
                             style={{ margin: 12 }}
-                            rippleStyle={{ backgroundColor: 'rgba(255, 255, 255, .5)' }}
+                            rippleStyle={{ backgroundColor: 'rga(233,218,196, .5)' }}
                             icon={
-                                    <i style={{ fontSize: 17, color: 'rgb(255,255,255)' }} 
+                                    <i style={{ fontSize: 17, color: 'rgb(233,218,196)' }} 
                                        className='fa fa-facebook-square'></i>
                                  }
                         />
@@ -42,9 +71,9 @@ class Home extends PureComponent {
                             labelColor='rgb(255, 255, 255)'
                             backgroundColor=' #e95950'
                             style={{ margin: 12 }}
-                            rippleStyle={{ backgroundColor: 'rgba(255, 255, 255, .5)' }}
+                            rippleStyle={{ backgroundColor: 'rga(233,218,196, .5)' }}
                             icon={
-                                <i style={{ fontSize: 17, color: 'rgb(255,255,255)' }}
+                                <i style={{ fontSize: 17, color: 'rgb(233,218,196)' }}
                                     className='fa fa-instagram'></i>
                                 
                             }
@@ -54,7 +83,7 @@ class Home extends PureComponent {
                     <img className='home-img' src='/images/food-sunset-love-field-shorter.jpg' />
                 </div>
 
-                <BagelGrid />
+                <BagelGrid bagels={ this.state.bagels } />
             </div>
         );
     }

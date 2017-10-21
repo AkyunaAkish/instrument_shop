@@ -1,7 +1,7 @@
 @import 'variables';
 
 body {
-    background-color: $wheat !important;
+    background-color: $tan !important;
     font-family: 'Roboto', sans-serif !important;
 }
 
@@ -13,4 +13,8 @@ body {
     height: 100vh;
     overflow-x: hidden !important;
     overflow-y: scroll !important;
+}
+
+.margin-center {
+    margin: 0 auto;
 }
