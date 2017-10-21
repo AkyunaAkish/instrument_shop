@@ -52,6 +52,7 @@ class Home extends PureComponent {
                                 Made Fresh on Kauai, HI
                         </h2>
                         <RaisedButton
+                            className='social-btn'
                             href='https://www.facebook.com/Ya-Quddus-Bagel-1242342042461855'
                             target='_blank'
                             label='Like us on Facebook'
@@ -65,6 +66,7 @@ class Home extends PureComponent {
                                  }
                         />
                         <RaisedButton
+                            className='social-btn'
                             href='https://www.instagram.com/yaquddusbagel/'
                             target='_blank'
                             label='Follow us on Instagram'
@@ -80,7 +82,7 @@ class Home extends PureComponent {
                         />                 
                     </div>
                     
-                    <img className='home-img' src='/images/food-sunset-love-field-shorter.jpg' />
+                    <img className='home-img' src='/images/wheat_background.jpg' />
                 </div>
 
                 <BagelGrid bagels={ this.state.bagels } />

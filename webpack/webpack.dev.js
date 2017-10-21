@@ -6,7 +6,7 @@ const helpers = require('../helpers');
 module.exports = webpackMerge(commonConfig, {
     devtool: 'source-map',
     entry: {
-        bundle: './client/index.js'
+        bundle: ['babel-polyfill', './client/index.js']
     },
     output: {
         path: helpers.root('dist'),
