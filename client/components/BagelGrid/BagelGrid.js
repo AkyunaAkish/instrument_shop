@@ -15,11 +15,13 @@ class BagelGrid extends PureComponent {
                     <h3>{ bagel.type }</h3>
                     <div>
                         <RaisedButton
+                            className='bagel-item-btn'
                             label='Add to Cart'
                             backgroundColor='rgb(70,62,63)'
                             style={{ marginRight: 10 }}
                         />
                         <RaisedButton
+                            className='bagel-item-btn'
                             label='View Info'
                             backgroundColor='rgb(70,62,63)'
                         />

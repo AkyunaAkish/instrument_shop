@@ -12,14 +12,73 @@
         background-color: $yellowish_white;
     } 
 
-     @media (max-width: 1012px) { 
-         //TODO: create media queries to 
-         // keep bagel grid centered
-         // and the maximum amount of grid items
-         // showing at a time based on width of the window
-         // and whether or not the side bar is open
-        // & {
-        //     width: 1000px;
-        // }
+     @media (max-width: 1910px) { 
+        & {
+            width: 1480px;
+        }
+     }
+
+     @media (max-width: 1755px) { 
+        & {
+            width: 1110px;
+        }
+     }
+
+     @media (max-width: 1385px) { 
+        & {
+            width: 740px;
+        }
+     }
+
+     @media (max-width: 1013px) { 
+        & {
+            width: 740px;
+        }
+     }
+
+     @media (max-width: 755px) { 
+        & {
+            width: 370px;
+        }
+     }
+
+    @media (max-width: 385px) { 
+        .bagel-grid-item {
+            width: 300px;
+        }
+
+        & {
+            width: 315px;
+        }
+     }
+
+    @media (max-width: 335px) { 
+        .bagel-grid-item {
+            width: 250px;
+        }
+
+        & {
+            width: 265px;
+        }
+     }
+
+    @media (max-width: 270px) { 
+        .bagel-grid-item {
+            width: 200px;
+            height: 275px;
+            text-align: center;
+
+            .bagel-item-btn {
+                margin-bottom: 5px;
+            }
+
+            img {
+                height: 120px;
+            }
+        }
+
+        & {
+            width: 215px;
+        }
      }
 }
