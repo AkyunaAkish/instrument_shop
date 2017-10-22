@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Drawer from 'material-ui/Drawer';
@@ -31,7 +32,10 @@ class SideBar extends PureComponent {
                     </Link>
                     
                     <Link to='/cart'>                 
-                        <MenuItem primaryText='Shopping Cart' leftIcon={ <Cart /> } />
+                        <MenuItem primaryText={ <span>
+                                                  Shopping Cart <i>{ this.props.cart.length }</i>
+                                                </span> } 
+                                  leftIcon={ <Cart /> } />
                     </Link>
 
                     <Link to='/reviews'>                 
@@ -47,4 +51,10 @@ class SideBar extends PureComponent {
     }
 }
 
-export default SideBar;
+function mapStateToProps(state) {
+    return {
+        cart: state.cart.cart
+    };
+}
+
+export default connect(mapStateToProps)(SideBar);

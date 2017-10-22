@@ -1,4 +1,7 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import fetchCart from './actions/fetchCart';
+
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { asyncComponent } from 'react-async-component';
 
@@ -26,6 +29,10 @@ class Router extends PureComponent {
         super(props);
     }
 
+    componentDidMount() {
+        this.props.fetchCart();
+    }
+    
     render() {
         return (
             <BrowserRouter>
@@ -48,4 +55,4 @@ class Router extends PureComponent {
     }
 };
 
-export default Router;
+export default connect(null, { fetchCart })(Router);

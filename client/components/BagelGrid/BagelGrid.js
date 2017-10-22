@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import { Thumbnail, Button } from 'react-bootstrap';
+
+import addToCart from '../../actions/addToCart';
 
 class BagelGrid extends PureComponent {
     constructor(props) {
@@ -19,6 +22,7 @@ class BagelGrid extends PureComponent {
                             label='Add to Cart'
                             backgroundColor='rgb(70,62,63)'
                             style={{ marginRight: 10 }}
+                            onClick={() => this.props.addToCart(bagel) }
                         />
                         <RaisedButton
                             className='bagel-item-btn'
@@ -40,4 +44,4 @@ class BagelGrid extends PureComponent {
     }
 }
 
-export default BagelGrid;
+export default connect(null, { addToCart })(BagelGrid);
