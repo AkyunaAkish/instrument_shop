@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -17,16 +18,29 @@ class SideBar extends PureComponent {
         return (
             <div className='side-bar-container'>
                 <Drawer open={ true }>
-                    <MenuItem className='logo-menu-item text-center' >
-                        <h3> Ya Quddus <br/> Organic Bagelry</h3>
-                        <div className='logo-backdrop'></div>
-                        <img src='/images/ya_quddus_bagels_logo.jpg' style={{ height: 65, width: '100%' }} />
-                    </MenuItem>
+                    <Link to='/'>                 
+                        <MenuItem className='logo-menu-item text-center' >
+                            <h3> Ya Quddus <br/> Organic Bagelry</h3>
+                            <div className='logo-backdrop'></div>
+                            <img src='/images/ya_quddus_bagels_logo.jpg' style={{ height: 90, width: '100%' }} />
+                        </MenuItem>
+                    </Link>
 
-                    <MenuItem primaryText='Bagels' leftIcon={<Bagel /> } />
-                    <MenuItem primaryText='Shopping Cart' leftIcon={<Cart /> } />
-                    <MenuItem primaryText='Reviews' leftIcon={<Stars /> } />
-                    <MenuItem primaryText='Contact' leftIcon={<People /> } />
+                    <Link to='/'>                 
+                        <MenuItem primaryText='Bagels' leftIcon={ <Bagel /> } />
+                    </Link>
+                    
+                    <Link to='/cart'>                 
+                        <MenuItem primaryText='Shopping Cart' leftIcon={ <Cart /> } />
+                    </Link>
+
+                    <Link to='/reviews'>                 
+                        <MenuItem primaryText='Reviews' leftIcon={ <Stars /> } />
+                    </Link>
+
+                    <Link to='/contact'>                 
+                        <MenuItem primaryText='Contact' leftIcon={ <People /> } />
+                    </Link>
                 </Drawer>   
             </div>
         );
