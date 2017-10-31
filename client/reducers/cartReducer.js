@@ -1,4 +1,4 @@
-import { ADD_TO_CART, FETCH_CART } from '../actions/types';
+import { ADD_TO_CART, FETCH_CART, REMOVE_TO_CART } from '../actions/types';
 
 const initialState = {
     cart: []
@@ -12,20 +12,23 @@ export default function (state = initialState , action) {
                 window.localStorage.bagelCart = JSON.stringify(JSON.parse(window.localStorage.bagelCart).concat([action.payload]));
                 return { ...state, cart: state.cart.concat([action.payload]) };
             } else {
-                const cartHasBagelAlready = JSON.parse(window.localStorage.bagelCart).reduce((bool, bagel) => {
-                    if(action.payload.type === bagel.type) {
-                        bool = true;
+                window.localStorage.bagelCart = JSON.stringify(JSON.parse(window.localStorage.bagelCart).concat([action.payload]));
+                return { ...state, cart: state.cart.concat([action.payload]) };
+            }
+        case REMOVE_TO_CART:
+            if(window.localStorage.bagelCart) {
+                const filteredCart = JSON.parse(window.localStorage.bagelCart).filter((bagel) => {
+                    if(action.payload.type !== bagel.type) {
+                        return true;
+                    } else {
+                        return false;
                     }
+                });
 
-                    return bool;
-                }, false);
-
-                if (!cartHasBagelAlready) {
-                    window.localStorage.bagelCart = JSON.stringify(JSON.parse(window.localStorage.bagelCart).concat([action.payload]));
-                    return { ...state, cart: state.cart.concat([action.payload]) };
-                } else {
-                    return { ...state };
-                }
+                window.localStorage.bagelCart = JSON.stringify(filteredCart);
+                return { ...state, cart: filteredCart };
+            } else {
+                return { ...state };    
             }
         case FETCH_CART:
             if(window.localStorage.bagelCart) {

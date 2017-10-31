@@ -30,7 +30,7 @@ const store = dev ? createStoreWithMiddleware(reducers,
 
 const muiTheme = getMuiTheme({
     palette: {
-        primary1Color: 'rgb(70,62,63)',
+        primary1Color: 'rgb(233,218,196)',
         primary2Color: 'rgb(233,218,196)',
         primary3Color: 'rgb(233,218,196)',
         accent1Color: 'rgb(70,62,63)',

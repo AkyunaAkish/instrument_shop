@@ -15,7 +15,8 @@ class TopBar extends PureComponent {
     render() {
         return (
             <div className='top-bar-container'>
-                <AppBar title='Ya Quddus Bagel' />                    
+                <AppBar style={{ backgroundColor: 'rgb(70,62,63)' }}
+                        title='Ya Quddus Bagel' />                    
             </div>
         );
     }

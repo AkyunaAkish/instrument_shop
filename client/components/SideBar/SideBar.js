@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import Badge from 'material-ui/Badge';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -32,9 +33,12 @@ class SideBar extends PureComponent {
                     </Link>
                     
                     <Link to='/cart'>                 
-                        <MenuItem primaryText={ <span>
-                                                  Shopping Cart <i>{ this.props.cart.length }</i>
-                                                </span> } 
+                        <MenuItem style={{ paddingTop: 5 }} 
+                                  primaryText={ 
+                                                <span className='inline'>
+                                                    Shopping Cart <Badge className='cart-badge' badgeContent={ this.props.cart.length } primary={ true } />
+                                                </span> 
+                                              } 
                                   leftIcon={ <Cart /> } />
                     </Link>
 
