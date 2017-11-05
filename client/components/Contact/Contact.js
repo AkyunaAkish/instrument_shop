@@ -7,7 +7,7 @@ class Contact extends PureComponent {
 
     render() {
         return (
-            <div className='reviews-container'>
+            <div className='contact-container'>
                 <h1>Contact</h1>
             </div>
         );
