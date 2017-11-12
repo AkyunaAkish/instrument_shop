@@ -25,10 +25,26 @@ body {
     margin: 0 auto;
 }
 
+.inline-block {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
+
+.inline {
+    display: inline;
+}
+
 .shadow {
     box-shadow: 0 3px 6px rgba(70,62,63,0.16), 0 3px 6px rgba(70,62,63,0.23);
     
     &:hover {
        box-shadow: 0 19px 38px rgba(70,62,63,0.30), 0 15px 12px rgba(70,62,63,0.22);
     }
+}
+
+.salmon-text {
+    color: $salmon !important;
 }

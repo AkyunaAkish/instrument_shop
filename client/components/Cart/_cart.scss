@@ -14,4 +14,22 @@
            display: none !important; 
         }
     }
+
+    .grand-total-container {
+        width: 97%;
+        margin: 0 auto;
+        * {
+            margin-top: 0 !important;
+        }
+    }
+
+    .cart-list {
+        *:hover {
+            cursor: default !important;
+        }
+
+        svg:hover {
+            cursor: pointer !important;
+        }
+    }
 }

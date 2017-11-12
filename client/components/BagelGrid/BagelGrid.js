@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Thumbnail, Button } from 'react-bootstrap';
 
 import addToCart from '../../actions/addToCart';
-import removeFromCart from '../../actions/removeFromCart';
+import AddToCartIcon from 'material-ui/svg-icons/action/add-shopping-cart';
 
 class BagelGrid extends PureComponent {
     constructor(props) {
@@ -33,16 +33,14 @@ class BagelGrid extends PureComponent {
             return (
                 <Thumbnail key={ ind } className='bagel-grid-item text-left shadow' src={ bagel.img }>
                     <h3>{ bagel.type }</h3>
+                    <h5> { `$${bagel.price.toFixed(2)}` }</h5>
                     <div>
                         <RaisedButton className='bagel-item-btn'
                                       label={ hasBagel ? 'Add another' : 'Add to Cart' }
                                       backgroundColor='rgb(70,62,63)'
                                       style={{ marginRight: 10 }}
+                                      icon={ <AddToCartIcon style={{ fill: 'rgb(89,146,43)' }} /> }
                                       onClick={ () => this.props.addToCart(bagel) } />
-
-                        <RaisedButton className='bagel-item-btn'
-                                      label='View Info'
-                                      backgroundColor='rgb(70,62,63)' />
                     </div>
                 </Thumbnail>
             );
@@ -64,4 +62,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { addToCart, removeFromCart })(BagelGrid);
+export default connect(mapStateToProps, { addToCart })(BagelGrid);

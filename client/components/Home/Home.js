@@ -13,27 +13,33 @@ class Home extends PureComponent {
             bagels: [
                 {
                     type: 'Whole Wheat',
-                    img: '/images/ya_quddus_bagels_logo.jpg'
+                    img: '/images/ya_quddus_bagels_logo.jpg',
+                    price: 5.99
                 },
                 {
                     type: 'Marble Rye',
-                    img: '/images/ya_quddus_bagels_logo.jpg'
+                    img: '/images/ya_quddus_bagels_logo.jpg',
+                    price: 5.99
                 },
                 {
                     type: 'Sesame',
-                    img: '/images/ya_quddus_bagels_logo.jpg'
+                    img: '/images/ya_quddus_bagels_logo.jpg',
+                    price: 5.99
                 },
                 {
                     type: 'Pumpernickel',
-                    img: '/images/ya_quddus_bagels_logo.jpg'
+                    img: '/images/ya_quddus_bagels_logo.jpg',
+                    price: 5.99
                 },
                 {
                     type: '7 Seed',
-                    img: '/images/ya_quddus_bagels_logo.jpg'
+                    img: '/images/ya_quddus_bagels_logo.jpg',
+                    price: 5.99
                 },
                 {
                     type: 'Jalapeno',
-                    img: '/images/ya_quddus_bagels_logo.jpg'
+                    img: '/images/ya_quddus_bagels_logo.jpg',
+                    price: 5.99
                 }
             ]
         };

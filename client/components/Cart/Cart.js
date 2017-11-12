@@ -1,19 +1,35 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+
+import addToCart from '../../actions/addToCart';
+import removeFromCart from '../../actions/removeFromCart';
+
+import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import { List, ListItem } from 'material-ui/List';
-import ActionInfo from 'material-ui/svg-icons/action/info';
 import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
-import Avatar from 'material-ui/Avatar';
-import FileFolder from 'material-ui/svg-icons/file/folder';
-import ActionAssignment from 'material-ui/svg-icons/action/assignment';
-import { blue500, yellow600 } from 'material-ui/styles/colors';
-import EditorInsertChart from 'material-ui/svg-icons/editor/insert-chart';
+import CartIcon from 'material-ui/svg-icons/action/shopping-cart';
+import AddToCartIcon from 'material-ui/svg-icons/action/add-shopping-cart';
+import RemoveFromCartIcon from 'material-ui/svg-icons/action/remove-shopping-cart';
+import RemoveIcon from 'material-ui/svg-icons/action/delete-forever';
 
 class Cart extends PureComponent {
     constructor(props) {
         super(props);
+
+        this.bagelIndexes = {};
+    }
+
+    findCartGrandTotal() {
+        if(window.localStorage.bagelCart) {
+            return JSON.parse(window.localStorage.bagelCart).reduce((grandTotal, bagel) => {
+                if(bagel.price) {
+                    grandTotal += bagel.price;
+                }
+
+                return grandTotal;
+            }, 0).toFixed(2);
+        }
     }
 
     findBagelCount(bagel) {
@@ -36,29 +52,79 @@ class Cart extends PureComponent {
         }, false);
     }
 
+    renderCartListItemPrimaryText(bagel) {
+        return (
+            <div className='inline-block'>
+                <span className='inline-block' style={{ fontSize: 22 }}>{ this.findBagelCount(bagel) }</span>
+                <AddToCartIcon className='inline-block' 
+                               style={{ fill: 'rgb(89,146,43)', marginRight: 10, marginLeft: 10, height: 20 }}
+                               onClick={ () => this.props.addToCart(bagel) } />
+
+                <RemoveFromCartIcon className='inline-block' 
+                                    style={{ fill: 'rgb(240,91,79)', height: 20 }} 
+                                    onClick={ () => this.props.removeFromCart(bagel, true) } />
+            </div>
+        );
+    }
+
+    setBagelIndexes(bagels) {
+        // this function is meant to enforce consistent order of rendering list items
+        // so that when the component re-renders the same order of bagels in the cart will be maintained
+        let trackedBagels = {};
+        let indCount = 0;
+
+        // only the first instance of a bagel needs to be tracked
+        let filteredBagelArr = bagels.filter((bagel) => {
+            if(trackedBagels[bagel.type] == undefined) {
+                trackedBagels[bagel.type] = indCount;
+                indCount++;
+                return true;
+            } else { 
+                return false;
+            }
+        });
+   
+        let indexObj = {};
+
+        filteredBagelArr.forEach((bagel, ind) => {
+            indexObj[bagel.type] = ind;
+        });
+
+        this.bagelIndexes = indexObj;
+    }
+
     renderCartList() {
         const typesInCart = [];
+        
+        if(Object.keys(this.bagelIndexes).length < 1) {
+            this.setBagelIndexes(this.props.cart);
+        }
 
-        return this.props.cart.reduce((finalArr, bagel, ind) => {
+        let orderedCartList = [];
+
+        this.props.cart.forEach((bagel, ind) => {
             if (!this.hasBagelAlready(typesInCart, bagel)) {
-                    typesInCart.push(bagel);
+                typesInCart.push(bagel);
 
-                    finalArr.push(
-                        <div key={ ind }>
-                                { ind != 0 ? <Divider /> : <span></span> }
+                let indForCurrBagel = this.bagelIndexes[bagel.type];
 
-                                <ListItem style={{ color: 'rgb(70,62,63)' }}
-                                          leftAvatar={ <span>{bagel.type}</span> }
-                                          rightIcon={ <ActionInfo className='inline-block' /> }
-                                          primaryText={ this.findBagelCount(bagel) } />
-                        </div>
-             
+                orderedCartList[indForCurrBagel] = (
+                    <div key={ ind }>
+                        { this.bagelIndexes[bagel.type] != 0 ? <Divider /> : <span></span> }
+                        
+                        <ListItem style={{ color: 'rgb(70,62,63)' }}
+                                  leftAvatar={ <span style={{ paddingTop: 10, fontSize: 22 }}>{ bagel.type }</span> }
+                                  rightIcon={ <RemoveIcon className='inline-block' style={{ fill: 'rgb(240,91,79)' }} onClick={ () => this.props.removeFromCart(bagel)} /> }
+                                  primaryText={ this.renderCartListItemPrimaryText(bagel)}
+                                  secondaryText={ `$${(this.findBagelCount(bagel) * bagel.price).toFixed(2)}` } />
+                    </div>
                 );
             }
+        });
 
-            return finalArr;
-        }, []);
+        return orderedCartList;
     }
+
     render() {
         const style = {
             width: '97%',
@@ -72,11 +138,25 @@ class Cart extends PureComponent {
 
         return (
             <div className='cart-container'>
+                <h1 className='text-center'>Shopping Cart</h1>
                 <Paper className='cart-paper' style={ style } zDepth={ 1 }>
-                    <List>
-                        { this.renderCartList() }
+                    <List className='cart-list'>
+                        { this.props.cart.length ? this.renderCartList() : <h3 className='salmon-text'>Cart is Empty</h3> }
                     </List>
                 </Paper>
+
+                <div className='grand-total-container' style={{ display: this.props.cart.length < 1 ? 'none' : 'block' }}>
+                    <h3>Grand Total: ${ this.findCartGrandTotal() }</h3>
+                </div>
+
+                <div style={{ width: '100%', textAlign: 'center', display: this.props.cart.length < 1 ? 'none' : 'block' }}>
+                    <RaisedButton className='bagel-item-btn'
+                                  label='Checkout'
+                                  icon={ <CartIcon /> }
+                                  backgroundColor='rgb(70,62,63)'
+                                  style={{ marginRight: 10, width: '97%' }}
+                                  onClick={() => console.log('checkout')} />
+                </div>
             </div>
         );
     }
@@ -88,4 +168,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, { addToCart, removeFromCart })(Cart);

@@ -17,12 +17,19 @@ export default function (state = initialState , action) {
             }
         case REMOVE_TO_CART:
             if(window.localStorage.bagelCart) {
+                let hasRemovedOneAlready = false;
+
                 const filteredCart = JSON.parse(window.localStorage.bagelCart).filter((bagel) => {
-                    if(action.payload.type !== bagel.type) {
+                    if(hasRemovedOneAlready && action.payload.onlyRemoveOne) {
                         return true;
-                    } else {
-                        return false;
-                    }
+                    } else if(!action.payload.onlyRemoveOne || !hasRemovedOneAlready) {
+                        if (action.payload.bagel.type !== bagel.type) {
+                            return true;
+                        } else {
+                            hasRemovedOneAlready = true;
+                            return false;
+                        }
+                    }              
                 });
 
                 window.localStorage.bagelCart = JSON.stringify(filteredCart);
