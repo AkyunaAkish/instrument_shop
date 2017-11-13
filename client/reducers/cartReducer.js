@@ -7,29 +7,45 @@ const initialState = {
 export default function (state = initialState , action) {
     switch (action.type) {
         case ADD_TO_CART:
+            const newBagelInstances = [];
+
+            if (action.payload.amt && typeof action.payload.amt == 'number') {
+                for(let i = 0; i < action.payload.amt; i++) {
+                    newBagelInstances.push(action.payload.bagel);
+                }
+            } else {
+                newBagelInstances.push(action.payload.bagel);
+            }
+
             if(!window.localStorage.bagelCart) {
                 window.localStorage.bagelCart = JSON.stringify([]);
-                window.localStorage.bagelCart = JSON.stringify(JSON.parse(window.localStorage.bagelCart).concat([action.payload]));
-                return { ...state, cart: state.cart.concat([action.payload]) };
+                window.localStorage.bagelCart = JSON.stringify(JSON.parse(window.localStorage.bagelCart).concat(newBagelInstances));
+                return { ...state, cart: state.cart.concat(newBagelInstances) };
             } else {
-                window.localStorage.bagelCart = JSON.stringify(JSON.parse(window.localStorage.bagelCart).concat([action.payload]));
-                return { ...state, cart: state.cart.concat([action.payload]) };
+                window.localStorage.bagelCart = JSON.stringify(JSON.parse(window.localStorage.bagelCart).concat(newBagelInstances));
+                return { ...state, cart: state.cart.concat(newBagelInstances) };
             }
         case REMOVE_TO_CART:
             if(window.localStorage.bagelCart) {
-                let hasRemovedOneAlready = false;
+                let amtToRemove = action.payload.amt;
 
                 const filteredCart = JSON.parse(window.localStorage.bagelCart).filter((bagel) => {
-                    if(hasRemovedOneAlready && action.payload.onlyRemoveOne) {
+                    if (action.payload.bagel.type == bagel.type && amtToRemove > 0) {
+                        amtToRemove--;
+                        return false;
+                    } else { 
                         return true;
-                    } else if(!action.payload.onlyRemoveOne || !hasRemovedOneAlready) {
-                        if (action.payload.bagel.type !== bagel.type) {
-                            return true;
-                        } else {
-                            hasRemovedOneAlready = true;
-                            return false;
-                        }
-                    }              
+                    }
+                    // if (amtToRemove < 1 && action.payload.onlyRemoveOne) {
+                    //     return true;
+                    // } else if(!action.payload.onlyRemoveOne || !hasRemovedOneAlready) {
+                    //     if (action.payload.bagel.type !== bagel.type) {
+                    //         return true;
+                    //     } else {
+                    //         hasRemovedOneAlready = true;
+                    //         return false;
+                    //     }
+                    // }              
                 });
 
                 window.localStorage.bagelCart = JSON.stringify(filteredCart);

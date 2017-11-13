@@ -6,6 +6,7 @@ import removeFromCart from '../../actions/removeFromCart';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
+import Snackbar from 'material-ui/Snackbar';
 import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import CartIcon from 'material-ui/svg-icons/action/shopping-cart';
@@ -52,17 +53,34 @@ class Cart extends PureComponent {
         }, false);
     }
 
-    renderCartListItemPrimaryText(bagel) {
+    handleCartInputChange(e, bagel, id) {
+        if(parseInt(e.target.value) > 1000) {
+            alert('Cannot Exceed 1000');
+        } else {
+            // amount of bagel
+            if (this.findBagelCount(bagel) > parseInt(e.target.value) && Number(this.findBagelCount(bagel) - parseInt(e.target.value))) {
+                this.props.removeFromCart(bagel, this.findBagelCount(bagel) - parseInt(e.target.value));
+            } else if (Number(parseInt(e.target.value) - this.findBagelCount(bagel))) {
+                this.props.addToCart(bagel, parseInt(e.target.value) - this.findBagelCount(bagel));
+            } else {
+                this.props.removeFromCart(bagel, this.findBagelCount(bagel) - 1);
+            }
+        }
+
+        $(id).focus();
+    }
+
+    renderCartListItemPrimaryText(bagel, ind) {
         return (
             <div className='inline-block'>
-                <span className='inline-block' style={{ fontSize: 22 }}>{ this.findBagelCount(bagel) }</span>
+                <input id={`cartInput${ind}`} onChange={(e) => this.handleCartInputChange(e, bagel, `#cartInput${ind}`) } className='inline-block text-center' value={ this.findBagelCount(bagel) } type='text' style={{ fontSize: 22, width: 100 }} />
                 <AddToCartIcon className='inline-block' 
                                style={{ fill: 'rgb(89,146,43)', marginRight: 10, marginLeft: 10, height: 20 }}
                                onClick={ () => this.props.addToCart(bagel) } />
 
                 <RemoveFromCartIcon className='inline-block' 
                                     style={{ fill: 'rgb(240,91,79)', height: 20 }} 
-                                    onClick={ () => this.props.removeFromCart(bagel, true) } />
+                                    onClick={ () => this.props.removeFromCart(bagel, 1) } />
             </div>
         );
     }
@@ -114,9 +132,9 @@ class Cart extends PureComponent {
                         
                         <ListItem style={{ color: 'rgb(70,62,63)' }}
                                   leftAvatar={ <span style={{ paddingTop: 10, fontSize: 22 }}>{ bagel.type }</span> }
-                                  rightIcon={ <RemoveIcon className='inline-block' style={{ fill: 'rgb(240,91,79)' }} onClick={ () => this.props.removeFromCart(bagel)} /> }
-                                  primaryText={ this.renderCartListItemPrimaryText(bagel)}
-                                  secondaryText={ `$${(this.findBagelCount(bagel) * bagel.price).toFixed(2)}` } />
+                                  rightIcon={<RemoveIcon className='inline-block' style={{ fill: 'rgb(240,91,79)' }} onClick={() => this.props.removeFromCart(bagel, this.findBagelCount(bagel))} /> }
+                                  primaryText={ this.renderCartListItemPrimaryText(bagel, ind) }
+                                  secondaryText={ <span className='text-center block' style={{ marginRight: 120 }}>${(this.findBagelCount(bagel) * bagel.price).toFixed(2)}</span> } />
                     </div>
                 );
             }
