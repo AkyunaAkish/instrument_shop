@@ -35,17 +35,7 @@ export default function (state = initialState , action) {
                         return false;
                     } else { 
                         return true;
-                    }
-                    // if (amtToRemove < 1 && action.payload.onlyRemoveOne) {
-                    //     return true;
-                    // } else if(!action.payload.onlyRemoveOne || !hasRemovedOneAlready) {
-                    //     if (action.payload.bagel.type !== bagel.type) {
-                    //         return true;
-                    //     } else {
-                    //         hasRemovedOneAlready = true;
-                    //         return false;
-                    //     }
-                    // }              
+                    }           
                 });
 
                 window.localStorage.bagelCart = JSON.stringify(filteredCart);

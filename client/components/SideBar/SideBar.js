@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import toggleSideBar from '../../actions/toggleSideBar';
+
 import Badge from 'material-ui/Badge';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -19,9 +21,11 @@ class SideBar extends PureComponent {
     render() {
         return (
             <div className='side-bar-container'>
-                <Drawer open={ true }>
+                <Drawer open={ this.props.dimensions.width >= 1013 ? true : this.props.sideBarOpen } 
+                        docked={ this.props.dimensions.width >= 1013 ? true : false } 
+                        onRequestChange={ () => this.props.dimensions.width >= 1013 ? null : this.props.toggleSideBar() }>
                     <Link to='/'>                 
-                        <MenuItem className='logo-menu-item text-center' >
+                        <MenuItem className='logo-menu-item text-center' onClick={ () => this.props.toggleSideBar(false) }>
                             <h3> Ya Quddus <br/> Organic Bagelry</h3>
                             <div className='logo-backdrop'></div>
                             <img src='/images/ya_quddus_bagels_logo.jpg' style={{ height: 90, width: '100%' }} />
@@ -29,11 +33,14 @@ class SideBar extends PureComponent {
                     </Link>
 
                     <Link to='/'>                 
-                        <MenuItem primaryText='Bagels' leftIcon={ <Bagel /> } />
+                        <MenuItem primaryText='Bagels' 
+                                  onClick={ () => this.props.toggleSideBar(false) }
+                                  leftIcon={ <Bagel /> } />
                     </Link>
                     
                     <Link to='/cart'>                 
                         <MenuItem style={{ paddingTop: 5 }} 
+                                  onClick={ () => this.props.toggleSideBar(false) }
                                   primaryText={ 
                                                 <span className='inline'>
                                                     Shopping Cart <Badge className='cart-badge' badgeContent={ this.props.cart.length } primary={ true } />
@@ -43,11 +50,15 @@ class SideBar extends PureComponent {
                     </Link>
 
                     <Link to='/reviews'>                 
-                        <MenuItem primaryText='Reviews' leftIcon={ <Stars /> } />
+                        <MenuItem primaryText='Reviews' 
+                                  onClick={ () => this.props.toggleSideBar(false) }
+                                  leftIcon={ <Stars /> } />
                     </Link>
 
                     <Link to='/contact'>                 
-                        <MenuItem primaryText='Contact' leftIcon={ <People /> } />
+                        <MenuItem primaryText='Contact' 
+                                  onClick={ () => this.props.toggleSideBar(false) }
+                                  leftIcon={ <People /> } />
                     </Link>
                 </Drawer>   
             </div>
@@ -57,8 +68,10 @@ class SideBar extends PureComponent {
 
 function mapStateToProps(state) {
     return {
-        cart: state.cart.cart
+        cart: state.cart.cart,
+        sideBarOpen: state.sideBar.sideBarOpen,
+        dimensions: state.shared.dimensions
     };
 }
 
-export default connect(mapStateToProps)(SideBar);
+export default connect(mapStateToProps, { toggleSideBar })(SideBar);

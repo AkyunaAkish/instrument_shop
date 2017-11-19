@@ -5,6 +5,8 @@ import fetchCart from './actions/fetchCart';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { asyncComponent } from 'react-async-component';
 
+import updateDimensions from './actions/updateDimensions';
+
 import TopBar from './components/TopBar/TopBar';
 import SideBar from './components/SideBar/SideBar';
 
@@ -31,6 +33,12 @@ class Router extends PureComponent {
 
     componentDidMount() {
         this.props.fetchCart();
+        
+        this.props.updateDimensions(window.innerHeight, window.innerWidth);
+
+        window.addEventListener('resize', () => {
+            this.props.updateDimensions(window.innerHeight, window.innerWidth);
+        });
     }
     
     render() {
@@ -55,4 +63,4 @@ class Router extends PureComponent {
     }
 };
 
-export default connect(null, { fetchCart })(Router);
+export default connect(null, { fetchCart, updateDimensions })(Router);
