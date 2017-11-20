@@ -72,7 +72,7 @@ class Cart extends PureComponent {
 
     renderCartListItemPrimaryText(bagel, ind) {
         return (
-            <div className='inline-block'>
+            <div className='inline-block primary-text-section'>
                 <input id={`cartInput${ind}`} onChange={(e) => this.handleCartInputChange(e, bagel, `#cartInput${ind}`) } className='inline-block text-center' value={ this.findBagelCount(bagel) } type='text' style={{ fontSize: 22, width: 100 }} />
                 <AddToCartIcon className='inline-block' 
                                style={{ fill: 'rgb(89,146,43)', marginRight: 10, marginLeft: 10, height: 20 }}
@@ -81,6 +81,12 @@ class Cart extends PureComponent {
                 <RemoveFromCartIcon className='inline-block' 
                                     style={{ fill: 'rgb(240,91,79)', height: 20 }} 
                                     onClick={ () => this.props.removeFromCart(bagel, 1) } />
+
+                <div className='list-item-secondary-section block'>
+                    <span style={{ marginRight: 120 }}>
+                        ${(this.findBagelCount(bagel) * bagel.price).toFixed(2)}
+                    </span>
+                </div>
             </div>
         );
     }
@@ -130,11 +136,31 @@ class Cart extends PureComponent {
                     <div key={ ind }>
                         { this.bagelIndexes[bagel.type] != 0 ? <Divider /> : <span></span> }
                         
-                        <ListItem style={{ color: 'rgb(70,62,63)' }}
-                                  leftAvatar={ <span style={{ paddingTop: 10, fontSize: 22 }}>{ bagel.type }</span> }
-                                  rightIcon={<RemoveIcon className='inline-block' style={{ fill: 'rgb(240,91,79)' }} onClick={() => this.props.removeFromCart(bagel, this.findBagelCount(bagel))} /> }
-                                  primaryText={ this.renderCartListItemPrimaryText(bagel, ind) }
-                                  secondaryText={ <span className='text-center block' style={{ marginRight: 120 }}>${(this.findBagelCount(bagel) * bagel.price).toFixed(2)}</span> } />
+                        <ListItem style={{ color: 'rgb(70,62,63)' }} className='row row-centered'>
+
+                            <div className='list-item-left-section col-md-4'>
+                                <span style={{ fontSize: 22 }}>{ bagel.type }</span>
+                            </div>
+
+                            <div className='list-item-primary-section col-md-4'>
+                                { this.renderCartListItemPrimaryText(bagel, ind) }                                                             
+                            </div>
+
+                            <div className='list-item-right-section col-md-4'>
+                                { this.props.dimensions.width > 992 ? 
+                                        <RemoveIcon className='inline-block'
+                                                    style={{ fill: 'rgb(240,91,79)' }}
+                                                    onClick={ () => this.props.removeFromCart(bagel, this.findBagelCount(bagel)) } /> :
+                                        <RaisedButton label='Remove'
+                                                      labelPosition='after'
+                                                      backgroundColor='rgb(240,91,79)'
+                                                      labelColor='rgb(233,218,196)'
+                                                      onClick={ () => this.props.removeFromCart(bagel, this.findBagelCount(bagel)) }
+                                                      icon={ <RemoveIcon className='inline-block' style={{ fill: 'rgb(233,218,196)' }} /> } /> }
+
+                            </div>                            
+
+                       </ListItem>           
                     </div>
                 );
             }
@@ -144,20 +170,10 @@ class Cart extends PureComponent {
     }
 
     render() {
-        const style = {
-            width: '97%',
-            overflowY: 'scroll',
-            overflowX: 'hidden',
-            margin: 20,
-            backgroundColor: 'rgb(253,244,220)',
-            textAlign: 'center',
-            display: 'inline-block',
-        };
-
         return (
-            <div className='cart-container'>
+            <div className='cart-container text-center'>
                 <h1 className='text-center'>Shopping Cart</h1>
-                <Paper className='cart-paper' style={ style } zDepth={ 1 }>
+                <Paper className='cart-paper' zDepth={ 1 }>
                     <List className='cart-list'>
                         { this.props.cart.length ? this.renderCartList() : <h3 className='salmon-text'>Cart is Empty</h3> }
                     </List>
@@ -167,12 +183,12 @@ class Cart extends PureComponent {
                     <h3>Grand Total: ${ this.findCartGrandTotal() }</h3>
                 </div>
 
-                <div style={{ width: '100%', textAlign: 'center', display: this.props.cart.length < 1 ? 'none' : 'block' }}>
+                <div style={{ width: '100%', textAlign: 'center', display: this.props.cart.length < 1 ? 'none' : 'block', marginBottom: 10 }}>
                     <RaisedButton className='bagel-item-btn'
                                   label='Checkout'
                                   icon={ <CartIcon /> }
                                   backgroundColor='rgb(70,62,63)'
-                                  style={{ marginRight: 10, width: '97%' }}
+                                  style={{ width: '97%' }}
                                   onClick={() => console.log('checkout')} />
                 </div>
             </div>
@@ -182,7 +198,8 @@ class Cart extends PureComponent {
 
 function mapStateToProps(state) {
     return {
-        cart: state.cart.cart
+        cart: state.cart.cart,
+        dimensions: state.shared.dimensions
     };
 }
 

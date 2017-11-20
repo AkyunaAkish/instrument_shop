@@ -23,7 +23,21 @@
         }
     }
 
+    .cart-paper {
+        width: 97% !important;
+        overflow-y: scroll !important;
+        overflow-x: hidden !important;
+        margin: 0 auto !important;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+        background-color: rgb(253,244,220) !important;
+        text-align: center !important;
+        display: inline-block !important;
+    }
+
     .cart-list {
+        padding: 0 !important;
+
         *:hover {
             cursor: default !important;
         }
@@ -31,5 +45,64 @@
         svg:hover {
             cursor: pointer !important;
         }
+
+        .list-item-left-section {
+            min-height: 40px;
+            padding-top: 10px;
+            text-align: left;
+
+            @media (max-width: 1113px) { 
+                & {
+                   max-width: 170px;
+                   margin: 0 auto !important;
+                   padding-left: 0 !important;
+                   text-align: left !important;
+
+                }
+            }
+        }
+
+        .list-item-primary-section {
+            input {
+                margin-bottom: 5px;
+            }
+
+            .list-item-secondary-section {
+                span {
+                    float: left;
+                    margin-bottom: 5px;
+                }   
+            }  
+        }
+
+        .list-item-right-section {
+            text-align: right;
+            float: right;
+
+            svg {
+                margin: 0 !important;
+            }
+
+            @media (max-width: 992px) { 
+                & {
+                   min-width: 170px !important;
+                   max-width: 170px;                
+                   text-align: left !important;
+                   margin: 0 auto;
+                   padding-left: 0 !important;
+                   float: none;
+                }
+            }
+        }
+    }
+
+    .primary-text-section {
+            @media (max-width: 1113px) { 
+                & {
+                    min-width: 170px !important;
+                    max-width: 170px !important;
+                    margin: 0 auto !important;
+                }
+            }
     }
 }
