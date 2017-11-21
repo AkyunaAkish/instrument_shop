@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import addToCart from '../../actions/addToCart';
 import removeFromCart from '../../actions/removeFromCart';
@@ -19,6 +20,10 @@ class Cart extends PureComponent {
         super(props);
 
         this.bagelIndexes = {};
+        
+        this.state = {
+            updateButtonInds: {}
+        };
     }
 
     findCartGrandTotal() {
@@ -53,27 +58,60 @@ class Cart extends PureComponent {
         }, false);
     }
 
-    handleCartInputChange(e, bagel, id) {
-        if(parseInt(e.target.value) > 1000) {
-            alert('Cannot Exceed 1000');
-        } else {
-            // amount of bagel
-            if (this.findBagelCount(bagel) > parseInt(e.target.value) && Number(this.findBagelCount(bagel) - parseInt(e.target.value))) {
-                this.props.removeFromCart(bagel, this.findBagelCount(bagel) - parseInt(e.target.value));
-            } else if (Number(parseInt(e.target.value) - this.findBagelCount(bagel))) {
-                this.props.addToCart(bagel, parseInt(e.target.value) - this.findBagelCount(bagel));
-            } else {
-                this.props.removeFromCart(bagel, this.findBagelCount(bagel) - 1);
+    handleCartInputUpdate(bagel, id, ind) {    
+            if (Number($(id).val())) {
+                if (parseInt($(id).val()) > 1000) {
+                    alert('Cannot Exceed 1000');
+                } else {
+                    // amount of bagel
+                    if (this.findBagelCount(bagel) > parseInt($(id).val()) && Number(this.findBagelCount(bagel) - parseInt($(id).val()))) {
+                        this.props.removeFromCart(bagel, this.findBagelCount(bagel) - parseInt($(id).val()));
+                    } else if (Number(parseInt($(id).val()) - this.findBagelCount(bagel))) {
+                        this.props.addToCart(bagel, parseInt($(id).val()) - this.findBagelCount(bagel));
+                    } else {
+                        this.props.removeFromCart(bagel, this.findBagelCount(bagel) - 1);
+                    }
+                }
             }
-        }
 
-        $(id).focus();
+            $(id).val('');
+
+            let newButtonInds = { ...this.state.updateButtonInds };
+
+            newButtonInds[ind] = false;
+
+            this.setState({
+                updateButtonInds: newButtonInds
+            });
+    }
+
+    handleInputChange(e, ind) {
+        if(e.target.value.length) {
+            let newButtonInds = { ...this.state.updateButtonInds };
+            newButtonInds[ind] = true;
+
+             this.setState({ 
+                 updateButtonInds: newButtonInds
+             });
+        } else {
+            let newButtonInds = { ...this.state.updateButtonInds };
+            newButtonInds[ind] = false;
+
+            this.setState({
+                updateButtonInds: newButtonInds
+            });
+        }
     }
 
     renderCartListItemPrimaryText(bagel, ind) {
         return (
             <div className='inline-block primary-text-section'>
-                <input id={`cartInput${ind}`} onChange={(e) => this.handleCartInputChange(e, bagel, `#cartInput${ind}`) } className='inline-block text-center' value={ this.findBagelCount(bagel) } type='text' style={{ fontSize: 22, width: 100 }} />
+                <input id={ `cartInput${ind}` } 
+                       placeholder={ this.findBagelCount(bagel) } 
+                       type='number'
+                       onChange={ (e) => this.handleInputChange(e, ind) } 
+                       style={{ fontSize: 22, width: 100, height: 28 }} />
+
                 <AddToCartIcon className='inline-block' 
                                style={{ fill: 'rgb(89,146,43)', marginRight: 10, marginLeft: 10, height: 20 }}
                                onClick={ () => this.props.addToCart(bagel) } />
@@ -83,7 +121,13 @@ class Cart extends PureComponent {
                                     onClick={ () => this.props.removeFromCart(bagel, 1) } />
 
                 <div className='list-item-secondary-section block'>
-                    <span style={{ marginRight: 120 }}>
+                    <RaisedButton label='Update'
+                                  backgroundColor='rgb(3,68,211)'
+                                  labelColor='rgb(233,218,196)'
+                                  style={{ width: 50, height: 20, display: this.state.updateButtonInds[ind] ? 'block' : 'none' }}
+                                  className='update-btn'
+                                  onClick={ () => this.handleCartInputUpdate(bagel, `#cartInput${ind}`, ind) } />
+                    <span style={{ marginRight: 120, display: 'block' }}>
                         ${(this.findBagelCount(bagel) * bagel.price).toFixed(2)}
                     </span>
                 </div>
@@ -151,10 +195,11 @@ class Cart extends PureComponent {
                                         <RemoveIcon className='inline-block'
                                                     style={{ fill: 'rgb(240,91,79)' }}
                                                     onClick={ () => this.props.removeFromCart(bagel, this.findBagelCount(bagel)) } /> :
-                                        <RaisedButton label='Remove'
+                                        <RaisedButton label={ `${this.findBagelCount(bagel)}` }
                                                       labelPosition='after'
                                                       backgroundColor='rgb(240,91,79)'
                                                       labelColor='rgb(233,218,196)'
+                                                      style={{ height: 30 }}
                                                       onClick={ () => this.props.removeFromCart(bagel, this.findBagelCount(bagel)) }
                                                       icon={ <RemoveIcon className='inline-block' style={{ fill: 'rgb(233,218,196)' }} /> } /> }
 
@@ -172,7 +217,8 @@ class Cart extends PureComponent {
     render() {
         return (
             <div className='cart-container text-center'>
-                <h1 className='text-center'>Shopping Cart</h1>
+                <h1 className='text-center cart-header-text'>Shopping Cart</h1>
+                
                 <Paper className='cart-paper' zDepth={ 1 }>
                     <List className='cart-list'>
                         { this.props.cart.length ? this.renderCartList() : <h3 className='salmon-text'>Cart is Empty</h3> }
@@ -180,16 +226,17 @@ class Cart extends PureComponent {
                 </Paper>
 
                 <div className='grand-total-container' style={{ display: this.props.cart.length < 1 ? 'none' : 'block' }}>
-                    <h3>Grand Total: ${ this.findCartGrandTotal() }</h3>
+                    <h3 className='text-left'>Grand Total: ${ this.findCartGrandTotal() }</h3>
                 </div>
 
                 <div style={{ width: '100%', textAlign: 'center', display: this.props.cart.length < 1 ? 'none' : 'block', marginBottom: 10 }}>
-                    <RaisedButton className='bagel-item-btn'
-                                  label='Checkout'
-                                  icon={ <CartIcon /> }
-                                  backgroundColor='rgb(70,62,63)'
-                                  style={{ width: '97%' }}
-                                  onClick={() => console.log('checkout')} />
+                    <Link to='/checkout'>
+                        <RaisedButton className='bagel-item-btn'
+                                      label='Checkout'
+                                      icon={ <CartIcon /> }
+                                      backgroundColor='rgb(70,62,63)'
+                                      style={{ width: '97%' }} />
+                    </Link>                                  
                 </div>
             </div>
         );
