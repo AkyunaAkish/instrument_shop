@@ -108,6 +108,7 @@ class Cart extends PureComponent {
             <div className='inline-block primary-text-section'>
                 <input id={ `cartInput${ind}` } 
                        placeholder={ this.findBagelCount(bagel) } 
+                       className='styled-input'
                        type='number'
                        onChange={ (e) => this.handleInputChange(e, ind) } 
                        style={{ fontSize: 22, width: 100, height: 28 }} />

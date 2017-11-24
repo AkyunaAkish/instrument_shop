@@ -55,3 +55,31 @@ body {
 .salmon-text {
     color: $salmon !important;
 }
+
+.styled-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding-left: 4px;
+
+    &:focus {
+        &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+            color: white;
+        }
+
+        &::-moz-placeholder { /* Firefox 19+ */
+            color: white;
+        }
+
+        &:-ms-input-placeholder { /* IE 10+ */
+            color: white;
+        }
+
+        &:-moz-placeholder { /* Firefox 18- */
+            color: white;
+        }
+    }
+}
+
+.error-text {
+    color: $salmon;
+}
