@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 
 class Checkout extends PureComponent {
     constructor(props) {
@@ -34,10 +35,14 @@ class Checkout extends PureComponent {
             }
         };
 
+        let htmlFor = Date.now();
+
         return (
-            <div style={{ paddingLeft: 12 }}>
-                <label htmlFor={ Date.now() } className={ `${touched && error ? 'error-text' : ''} block` }>{ touched && error ? error : field.label }</label>                
-                <input id={ Date.now() } placeholder={ field.label } className='styled-input' { ...field.input } />
+            <div style={{ paddingLeft: 12 }} className='checkout-field'>
+                <label htmlFor={ htmlFor } className='block'>{ field.label }</label>  
+                <input id={ htmlFor } 
+                       placeholder={ touched && error ? error : field.placeholder || field.label  } 
+                       className={ `${touched && error ? 'error-text error-border' : ''} styled-input form-control` } { ...field.input } />
             </div>
         );
     }
@@ -55,28 +60,42 @@ class Checkout extends PureComponent {
         const { handleSubmit } = this.props;
 
         return (
-            <div className='checkout-container'>
-                <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
-                    <Field name='fullName' label='Full Name' component={ this.renderField } />
-                    <Field name='contactEmail' label='Contact Email' component={ this.renderField } />
-                    <Field name='contactPhoneNumber' label='Contact Phone Number' component={ this.renderField } />
-                    <Field name='deliveryAddressLineOne' label='Delivery Address Line 1' component={ this.renderField } />
-                    <Field name='deliveryAddressLineTwo' label='Address Line 2(optional unit number)' component={ this.renderField } />
-                    <Field name='zipCode' label='Zip Code' component={ this.renderField } />
-                    <Field name='town' label='Town' component={ this.renderField } />
-                    <Field name='state' label='State' component={ this.renderField } />
-                    <Field name='fullNameOnCard' label='Full Name on Card' component={ this.renderField } />
-                    <Field name='cardNumber' label='Card Number' component={ this.renderField } />
-                    <Field name='cardExpiration' label='Card Expiration' component={ this.renderField } />
-                    <Field name='cardSecurityCode' label='Card Security Code' component={ this.renderField } />
+            <div className='checkout-container text-center'>
+                <h1 className='text-center checkout-header-text'>Checkout</h1>
 
-                    <RaisedButton 
-                        type='submit'
-                        label='Submit Order'
-                        backgroundColor='rgb(164, 198, 57)'
-                        labelColor='rgb(255, 255, 255)'
-                        style={{ margin: 12 }} />
-                </form>
+                <Paper className='checkout-paper margin-center' zDepth={ 1 }>
+                    <form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
+                        <Field name='fullName' label='Full Name' component={ this.renderField } />
+                        <Field name='contactEmail' label='Contact Email' component={ this.renderField } />
+                        <Field name='contactPhoneNumber' label='Contact Phone Number' component={ this.renderField } />
+                        <Field name='deliveryAddressLineOne' label='Delivery Address Line 1' component={ this.renderField } />
+                        <Field name='deliveryAddressLineTwo' placeholder='Optional unit number' label='Delivery  Address Line 2(optional)' component={ this.renderField } />
+                        <Field name='zipCode' label='Zip Code' component={ this.renderField } />
+                        <Field name='preferredDeliveryDate' label='Preferred Delivery Date(mm/dd/yyy)' placeholder='mm/dd/yyy' component={ this.renderField } />
+                        <Field name='preferredDeliveryTime' label='Preferred Delivery Time(hh:mm AM/PM)' placeholder='hh:mm AM/PM' component={ this.renderField } />
+                        <Field name='town' label='Town' component={ this.renderField } />
+                        <Field name='state' label='State' component={ this.renderField } />
+                        <Field name='fullNameOnCard' label='Full Name on Credit/Debit Card' component={ this.renderField } />
+                        <Field name='cardNumber' label='Credit/Debit Card Number' component={ this.renderField } />
+                        <Field name='cardExpiration' placeholder='mm/dd/yyyy' label='Credit/Debit Card Expiration' component={ this.renderField } />
+                        <Field name='cardSecurityCode' label='Credit/Debit Card Security Code' component={ this.renderField } />
+
+
+                        <RaisedButton type='submit'
+                                      label='Submit Order'
+                                      backgroundColor='rgb(89,146,43)'
+                                      labelColor='rgb(255, 255, 255)'
+                                      style={{ margin: 12 }} />
+                        <Link to='/cart'>
+                            <RaisedButton type='button'
+                                        label='Back to Cart'
+                                        backgroundColor='rgb(70,62,63)'
+                                        labelColor='rgb(233,218,196)'
+                                        style={{ margin: 12 }} />
+                        </Link>               
+                 
+                    </form>
+                </Paper>    
             </div>
         );
     }
@@ -99,6 +118,10 @@ function validate(values) {
 
     if (!values.deliveryAddressLineOne) {
         errors.deliveryAddressLineOne = 'Please enter your delivery address line 1';
+    }
+
+    if (!values.preferredDeliveryTime) {
+        errors.preferredDeliveryTime = 'Please enter your preferred delivery time()';
     }
 
     if (!values.zipCode) {

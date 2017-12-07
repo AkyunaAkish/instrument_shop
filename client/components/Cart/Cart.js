@@ -7,7 +7,6 @@ import removeFromCart from '../../actions/removeFromCart';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import Snackbar from 'material-ui/Snackbar';
 import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import CartIcon from 'material-ui/svg-icons/action/shopping-cart';
