@@ -49,7 +49,7 @@ const muiTheme = getMuiTheme({
 
 ReactDOM.render(
     <Provider store={ store }>
-        <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
+        <MuiThemeProvider muiTheme={ getMuiTheme(muiTheme) }>
             <Router />
         </MuiThemeProvider>
     </Provider>, document.querySelector('#app'));
