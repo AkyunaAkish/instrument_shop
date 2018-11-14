@@ -52,40 +52,39 @@ class Home extends PureComponent {
                     <div className='home-img-backdrop'></div>
                     <div className='home-img-text text-center'> 
                         <h1>Ya Quddus Bagel</h1>
+
                         <h2>
                                 Handmade, Boiled, New York Style Bagels
                             <br />
                                 Made Fresh on Kauai, HI
                         </h2>
-                        <RaisedButton
-                            className='social-btn'
-                            href='https://www.facebook.com/Ya-Quddus-Bagel-1242342042461855'
-                            target='_blank'
-                            label='Like us on Facebook'
-                            labelColor='rgb(255, 255, 255)'
-                            backgroundColor='rgb(59,89,152)'
-                            style={{ margin: 12 }}
-                            rippleStyle={{ backgroundColor: 'rga(233,218,196, .5)' }}
-                            icon={
-                                    <i style={{ fontSize: 17, color: 'rgb(233,218,196)' }} 
-                                       className='fa fa-facebook-square'></i>
-                                 }
-                        />
-                        <RaisedButton
-                            className='social-btn'
-                            href='https://www.instagram.com/yaquddusbagel/'
-                            target='_blank'
-                            label='Follow us on Instagram'
-                            labelColor='rgb(255, 255, 255)'
-                            backgroundColor=' #e95950'
-                            style={{ margin: 12 }}
-                            rippleStyle={{ backgroundColor: 'rga(233,218,196, .5)' }}
-                            icon={
-                                <i style={{ fontSize: 17, color: 'rgb(233,218,196)' }}
-                                    className='fa fa-instagram'></i>
-                                
-                            }
-                        />                 
+
+                        <RaisedButton className='social-btn'
+                                      href='https://www.facebook.com/Ya-Quddus-Bagel-1242342042461855'
+                                      target='_blank'
+                                      label='Like us on Facebook'
+                                      labelColor='rgb(255, 255, 255)'
+                                      backgroundColor='rgb(59,89,152)'
+                                      style={{ margin: 12 }}
+                                      rippleStyle={{ backgroundColor: 'rga(233,218,196, .5)' }}
+                                      icon={
+                                              <i style={{ fontSize: 17, color: 'rgb(233,218,196)' }} 
+                                                 className='fa fa-facebook-square'></i>
+                                      }/>
+
+                        <RaisedButton className='social-btn'
+                                      href='https://www.instagram.com/yaquddusbagel/'
+                                      target='_blank'
+                                      label='Follow us on Instagram'
+                                      labelColor='rgb(255, 255, 255)'
+                                      backgroundColor=' #e95950'
+                                      style={{ margin: 12 }}
+                                      rippleStyle={{ backgroundColor: 'rga(233,218,196, .5)' }}
+                                      icon={
+                                          <i style={{ fontSize: 17, color: 'rgb(233,218,196)' }}
+                                             className='fa fa-instagram'></i>
+                                          
+                                      }/>                 
                     </div>
                     
                     <img className='home-img' src='/images/wheat_background.jpg' />

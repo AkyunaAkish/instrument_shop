@@ -1,8 +1,8 @@
-import { REMOVE_TO_CART } from './types';
+import { REMOVE_FROM_CART } from './types';
 
 export default function (bagel, amt) {
     return {
-        type: REMOVE_TO_CART,
+        type: REMOVE_FROM_CART,
         payload: {
             bagel,
             amt

@@ -7,7 +7,6 @@ import toggleSideBar from '../../actions/toggleSideBar';
 import Badge from 'material-ui/Badge';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 import Stars from 'material-ui/svg-icons/action/stars';
 import Cart from 'material-ui/svg-icons/action/shopping-cart';
 import Bagel from 'material-ui/svg-icons/image/adjust';
@@ -16,6 +15,20 @@ import People from 'material-ui/svg-icons/social/people';
 class SideBar extends PureComponent {
     constructor(props) {
         super(props);
+    }
+
+    getCartLength() {
+        let sum = 0;
+        
+        console.log('this.props.cart', this.props.cart);
+
+        if(Object.keys(this.props.cart).length) {
+            for(let key in this.props.cart) {
+                sum += this.props.cart[key];
+            }
+        } 
+
+        return sum;
     }
 
     render() {
@@ -43,7 +56,7 @@ class SideBar extends PureComponent {
                                   onClick={ () => this.props.toggleSideBar(false) }
                                   primaryText={ 
                                                 <span className='inline'>
-                                                    Shopping Cart <Badge className='cart-badge' badgeContent={ this.props.cart.length } primary={ true } />
+                                                    Shopping Cart <Badge className='cart-badge' badgeContent={ this.getCartLength() } primary={ true } />
                                                 </span> 
                                               } 
                                   leftIcon={ <Cart /> } />
