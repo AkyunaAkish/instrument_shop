@@ -16,10 +16,10 @@ class BagelGrid extends PureComponent {
     }
 
     renderAmountInCart(bagel) {
-        if(Object.keys(this.props.cart).length && this.props.cart[bagel.type]) {
+        if(Object.keys(this.props.cart).length && this.props.cart[bagel.type] && this.props.cart[bagel.type].amt) {
             return (
                 <i className='text-success'>
-                    <u onClick={ () => this.props.history.push('/cart') } className='pointer'># in cart ({ this.props.cart[bagel.type] })</u> 
+                    <u onClick={ () => this.props.history.push('/cart') } className='pointer'># in cart ({ this.props.cart[bagel.type].amt })</u> 
                     <RemoveFromCartIcon className='inline-block pointer'
                                         style={{ fill: 'rgb(240,91,79)', height: 15 }} 
                                         onClick={ () => this.props.removeFromCart(bagel, 1) } />

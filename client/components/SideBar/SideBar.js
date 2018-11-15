@@ -20,11 +20,9 @@ class SideBar extends PureComponent {
     getCartLength() {
         let sum = 0;
         
-        console.log('this.props.cart', this.props.cart);
-
         if(Object.keys(this.props.cart).length) {
             for(let key in this.props.cart) {
-                sum += this.props.cart[key];
+                sum += this.props.cart[key].amt;
             }
         } 
 

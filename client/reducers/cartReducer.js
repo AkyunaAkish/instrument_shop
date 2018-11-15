@@ -10,16 +10,18 @@ export default function (state = initialState , action) {
     switch (action.type) {
         case ADD_TO_CART:
             if(newBagelState[action.payload.bagel.type]) {
-                newBagelState[action.payload.bagel.type] += action.payload.amt;
+                newBagelState[action.payload.bagel.type].amt += action.payload.amt;
             } else {
-                newBagelState[action.payload.bagel.type] = action.payload.amt;
+                newBagelState[action.payload.bagel.type] = { ...action.payload.bagel, amt: action.payload.amt };
             }
             
             window.localStorage.bagelCart = JSON.stringify({ cart: newBagelState });
             return { cart: newBagelState };
 
         case REMOVE_FROM_CART:
-            newBagelState[action.payload.bagel.type] -= (action.payload.amt || 0);
+            if(newBagelState[action.payload.bagel.type].amt) {
+                newBagelState[action.payload.bagel.type].amt -= (action.payload.amt || 0);
+            }
             
             window.localStorage.bagelCart = JSON.stringify({ cart: newBagelState });
             return { cart: newBagelState };
