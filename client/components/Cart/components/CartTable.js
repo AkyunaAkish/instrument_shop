@@ -46,9 +46,9 @@ class CartTable extends PureComponent {
         
         rows = rows.map((row, id) => this.createRow(id, ...row));
  
-        const taxRate = 0.07;
+        const taxRate = 0.04;
         const invoiceSubtotal = this.subtotal(rows);
-        const invoiceTaxes = 0.07 * invoiceSubtotal;
+        const invoiceTaxes = taxRate * invoiceSubtotal;
         const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
         this.setState({

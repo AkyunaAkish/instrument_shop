@@ -51,4 +51,10 @@
     //         display: none;
     //     }
     //  }
+
+    .side-bar-item-disabled {
+        &:hover {
+            cursor: not-allowed !important; 
+        }
+    }
 }

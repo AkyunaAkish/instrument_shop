@@ -25,6 +25,8 @@ const store = dev ? createStoreWithMiddleware(reducers,
                                               window.__REDUX_DEVTOOLS_EXTENSION__ &&
                                               window.__REDUX_DEVTOOLS_EXTENSION__()) : createStoreWithMiddleware(reducers);
 
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+
 const muiTheme = getMuiTheme({
     palette: {
         primary1Color: 'rgb(233,218,196)',

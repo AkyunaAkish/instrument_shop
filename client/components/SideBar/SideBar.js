@@ -7,10 +7,11 @@ import toggleSideBar from '../../actions/toggleSideBar';
 import Badge from 'material-ui/Badge';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import Stars from 'material-ui/svg-icons/action/stars';
+// import Stars from 'material-ui/svg-icons/action/stars';
 import Cart from 'material-ui/svg-icons/action/shopping-cart';
 import Bagel from 'material-ui/svg-icons/image/adjust';
 import People from 'material-ui/svg-icons/social/people';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class SideBar extends PureComponent {
     constructor(props) {
@@ -27,6 +28,38 @@ class SideBar extends PureComponent {
         } 
 
         return sum;
+    }
+
+    renderCartLink() {
+        if(this.getCartLength()) {
+            return (
+                <Link to='/cart'>                 
+                        <MenuItem style={{ paddingTop: 5 }} 
+                                  onClick={ () => this.props.toggleSideBar(false) }
+                                  primaryText={ 
+                                                <span className='inline'>
+                                                    Shopping Cart <Badge className='cart-badge' badgeContent={ this.getCartLength() } primary={ true } />
+                                                </span> 
+                                              } 
+                                  leftIcon={ <Cart /> } />
+                    </Link>
+            );
+        } else {
+            return (     
+                <Tooltip title='Empty'
+                         classes={{ tooltip: 'tool-tip' }}>
+                    <MenuItem style={{ paddingTop: 5, color: 'grey' }} 
+                              className='side-bar-item-disabled'
+                              onClick={ () => this.props.toggleSideBar(false) }
+                              primaryText={ 
+                                          <span className='inline'>
+                                              Shopping Cart <Badge className='cart-badge' badgeContent={ this.getCartLength() } primary={ true } />
+                                          </span> 
+                                          } 
+                              leftIcon={ <Cart /> } />
+                </Tooltip>
+            );
+        }
     }
 
     render() {
@@ -49,18 +82,9 @@ class SideBar extends PureComponent {
                                   leftIcon={ <Bagel /> } />
                     </Link>
                     
-                    <Link to='/cart'>                 
-                        <MenuItem style={{ paddingTop: 5 }} 
-                                  onClick={ () => this.props.toggleSideBar(false) }
-                                  primaryText={ 
-                                                <span className='inline'>
-                                                    Shopping Cart <Badge className='cart-badge' badgeContent={ this.getCartLength() } primary={ true } />
-                                                </span> 
-                                              } 
-                                  leftIcon={ <Cart /> } />
-                    </Link>
+                    { this.renderCartLink() }
 
-                    {/*
+                    { /*
                     <Link to='/reviews'>                 
                         <MenuItem primaryText='Reviews' 
                                   onClick={ () => this.props.toggleSideBar(false) }
