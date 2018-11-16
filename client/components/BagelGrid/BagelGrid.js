@@ -7,6 +7,7 @@ import { Thumbnail } from 'react-bootstrap';
 
 import addToCart from '../../actions/addToCart';
 import removeFromCart from '../../actions/removeFromCart';
+
 import AddToCartIcon from 'material-ui/svg-icons/action/add-shopping-cart';
 import RemoveFromCartIcon from 'material-ui/svg-icons/action/remove-shopping-cart';
 

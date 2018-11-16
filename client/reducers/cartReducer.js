@@ -19,6 +19,7 @@ export default function (state = initialState , action) {
             return { cart: newBagelState };
 
         case REMOVE_FROM_CART:
+            console.log('actionremove', action)
             if(newBagelState[action.payload.bagel.type].amt) {
                 newBagelState[action.payload.bagel.type].amt -= (action.payload.amt || 0);
             }

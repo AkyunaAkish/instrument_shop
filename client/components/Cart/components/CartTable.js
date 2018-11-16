@@ -1,4 +1,10 @@
 import React, { PureComponent } from 'react';
+import { withRouter } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+
+import removeFromCart from '../../../actions/removeFromCart';
+
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -6,6 +12,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
   root: {
@@ -28,7 +36,14 @@ class CartTable extends PureComponent {
     }
 
     componentDidMount() {
-        // console.log('this.props.cart', this.props.cart);
+        this.updateCartTable();
+    }
+
+    componentWillReceiveProps() {
+        this.updateCartTable();
+    }
+
+    updateCartTable() {
         let cart = this.props.cart;
         let rows = [];
         
@@ -64,17 +79,23 @@ class CartTable extends PureComponent {
         return `${num.toFixed(2)}`;
     }
       
-    priceRow(qty, unit) {
-        return qty * unit;
+    priceRow(amt, unit) {
+        return amt * unit;
     }
       
-    createRow(id, desc, qty, unit) {
-        const price = this.priceRow(qty, unit);
-        return { id, desc, qty, unit, price };
+    createRow(id, type, amt, unit) {
+        const price = this.priceRow(amt, unit);
+        return { id, type, amt, unit, price };
     }
       
     subtotal(items) {
         return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+    }
+
+    handleDelete(row) {
+        this.props.removeFromCart(row, row.amt);
+        console.log('this.props.cart', this.props.cart);
+        this.props.handleEmptyCart();
     }
 
     render() {
@@ -90,17 +111,25 @@ class CartTable extends PureComponent {
                         <TableCell numeric>Qty.</TableCell>
                         <TableCell numeric>@</TableCell>
                         <TableCell numeric>Price</TableCell>
+                        <TableCell numeric></TableCell>
                     </TableRow>
                 </TableHead>
 
                 <TableBody>
                     { this.state.rows.map(row => {
+                        console.log('row', row);
                         return (
                             <TableRow key={ row.id }>
-                                <TableCell>{ row.desc }</TableCell>
-                                <TableCell numeric>{ row.qty }</TableCell>
+                                <TableCell>{ row.type }</TableCell>
+                                <TableCell numeric>{ row.amt }</TableCell>
                                 <TableCell numeric>{ row.unit }</TableCell>
                                 <TableCell numeric>{ this.ccyFormat(row.price) }</TableCell>
+                                <TableCell numeric>
+                                    <IconButton aria-label='Delete'
+                                                onClick={ () => this.handleDelete(row) }>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </TableCell>
                             </TableRow>
                         );
                     }) }
@@ -128,4 +157,4 @@ class CartTable extends PureComponent {
     }
 }
 
-export default withStyles(styles)(CartTable);
+export default connect(null, { removeFromCart })(withStyles(styles)(withRouter(CartTable)));

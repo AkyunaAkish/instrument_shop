@@ -9,6 +9,10 @@ import CartTable from './components/CartTable';
 
 class Cart extends PureComponent {
     componentWillMount() {
+        this.handleEmptyCart();
+    }
+
+    handleEmptyCart() {
         let isEmpty = true;
 
         if (Object.keys(this.props.cart).length) {
@@ -28,10 +32,11 @@ class Cart extends PureComponent {
 
     render() {
         return (
-          <div className='cart-container'>
-            <h1>Shopping Cart</h1>
-            <CartTable cart={ this.props.cart || {} } />
-        </div>
+            <div className='cart-container'>
+                <h1>Shopping Cart</h1>
+                <CartTable cart={ this.props.cart || {} } 
+                           handleEmptyCart={ () => this.handleEmptyCart() } />
+            </div>
         );
     }
 }
