@@ -93,8 +93,11 @@ class CartTable extends PureComponent {
     }
 
     handleDelete(row) {
+        // remove all of same type
         this.props.removeFromCart(row, row.amt);
-        console.log('this.props.cart', this.props.cart);
+
+        // check if cart is empty and
+        // redirect if cart has become empty
         this.props.handleEmptyCart();
     }
 
