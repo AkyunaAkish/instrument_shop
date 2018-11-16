@@ -60,12 +60,14 @@ class SideBar extends PureComponent {
                                   leftIcon={ <Cart /> } />
                     </Link>
 
+                    {/*
                     <Link to='/reviews'>                 
                         <MenuItem primaryText='Reviews' 
                                   onClick={ () => this.props.toggleSideBar(false) }
                                   leftIcon={ <Stars /> } />
                     </Link>
-
+                    */ }
+                    
                     <Link to='/contact'>                 
                         <MenuItem primaryText='Contact' 
                                   onClick={ () => this.props.toggleSideBar(false) }

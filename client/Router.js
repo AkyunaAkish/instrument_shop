@@ -22,13 +22,13 @@ const Checkout = asyncComponent({
     resolve: () => import('./components/Checkout/Checkout')
 });
 
-const Reviews = asyncComponent({
-    resolve: () => import('./components/Reviews/Reviews')
-});
-
 const Contact = asyncComponent({
     resolve: () => import('./components/Contact/Contact')
 });
+
+// const Reviews = asyncComponent({
+//     resolve: () => import('./components/Reviews/Reviews')
+// });
 
 class Router extends PureComponent {
     constructor(props) {
@@ -57,8 +57,8 @@ class Router extends PureComponent {
                             <Route exact path='/' component={ Home } />
                             <Route exact path='/cart' component={ Cart } />
                             <Route exact path='/checkout' component={ Checkout } />
-                            <Route exact path='/reviews' component={ Reviews } />
                             <Route exact path='/contact' component={ Contact } />
+                            { /* <Route exact path='/reviews' component={ Reviews } /> */ }
                             <Redirect from='*' to='/' />
                         </Switch>
                     </div>
