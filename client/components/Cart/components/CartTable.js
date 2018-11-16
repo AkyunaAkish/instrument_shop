@@ -14,6 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 const styles = theme => ({
   root: {
@@ -92,6 +93,19 @@ class CartTable extends PureComponent {
         return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
     }
 
+    handleEdit(row) {
+        console.log('Handle Edit', row);
+    }
+
+    renderEdit(row) {
+        return (
+            <IconButton aria-label='Edit Quantity'
+                        onClick={ () => this.handleEdit(row) }>
+                <EditIcon />
+            </IconButton>
+        );
+    }
+
     handleDelete(row) {
         // remove all of same type
         this.props.removeFromCart(row, row.amt);
@@ -108,7 +122,7 @@ class CartTable extends PureComponent {
             <Paper className={ classes.root } classes={{ root: 'cart-paper' }}>
                 <Table className={ classes.table }>
 
-                <TableHead>
+                <TableHead classes={{ root: 'table-section-left-aligned' }}>
                     <TableRow>
                         <TableCell>Bagel</TableCell>
                         <TableCell numeric>Qty.</TableCell>
@@ -118,14 +132,14 @@ class CartTable extends PureComponent {
                     </TableRow>
                 </TableHead>
 
-                <TableBody>
+                <TableBody classes={{ root: 'table-section-left-aligned' }}>
                     { this.state.rows.map(row => {
                         return (
                             <TableRow key={ row.id }>
                                 <TableCell>{ row.type }</TableCell>
-                                <TableCell numeric>{ row.amt }</TableCell>
-                                <TableCell numeric>{ row.unit }</TableCell>
-                                <TableCell numeric>{ this.ccyFormat(row.price) }</TableCell>
+                                <TableCell numeric>{ row.amt } { this.renderEdit(row) }</TableCell>
+                                <TableCell numeric>${ row.unit }</TableCell>
+                                <TableCell numeric>${ this.ccyFormat(row.price) }</TableCell>
                                 <TableCell numeric>
                                     <IconButton aria-label='Delete'
                                                 onClick={ () => this.handleDelete(row) }>
@@ -139,18 +153,18 @@ class CartTable extends PureComponent {
                     <TableRow>
                         <TableCell rowSpan={ 3 } />
                         <TableCell colSpan={ 2 }>Subtotal</TableCell>
-                        <TableCell numeric>{ this.ccyFormat(this.state.invoiceSubtotal) }</TableCell>
+                        <TableCell numeric>${ this.ccyFormat(this.state.invoiceSubtotal) }</TableCell>
                     </TableRow>
 
                     <TableRow>
                         <TableCell>Tax</TableCell>
                         <TableCell numeric>{ `${(this.state.taxRate * 100).toFixed(0)} %` }</TableCell>
-                        <TableCell numeric>{ this.ccyFormat(this.state.invoiceTaxes) }</TableCell>
+                        <TableCell numeric>${ this.ccyFormat(this.state.invoiceTaxes) }</TableCell>
                     </TableRow>
 
                     <TableRow>
                         <TableCell colSpan={ 2 }>Total</TableCell>
-                        <TableCell numeric>{ this.ccyFormat(this.state.invoiceTotal) }</TableCell>
+                        <TableCell numeric>${ this.ccyFormat(this.state.invoiceTotal) }</TableCell>
                     </TableRow>
                 </TableBody>
                 </Table>

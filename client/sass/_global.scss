@@ -117,3 +117,9 @@ body {
 .tool-tip {
     font-size: 20px !important;
 }
+
+.table-section-left-aligned {
+    * {
+        text-align: left !important;
+    }
+}
