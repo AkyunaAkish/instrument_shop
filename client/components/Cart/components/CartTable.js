@@ -120,7 +120,6 @@ class CartTable extends PureComponent {
 
                 <TableBody>
                     { this.state.rows.map(row => {
-                        console.log('row', row);
                         return (
                             <TableRow key={ row.id }>
                                 <TableCell>{ row.type }</TableCell>
