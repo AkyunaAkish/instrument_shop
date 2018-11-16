@@ -119,7 +119,7 @@ class CartTable extends PureComponent {
         const { classes } = this.props;
 
         return (
-            <Paper className={ classes.root } classes={{ root: 'cart-paper' }}>
+            <Paper className={ classes.root } classes={{ root: 'cart-paper always-show-scollbar' }}>
                 <Table className={ classes.table }>
 
                 <TableHead classes={{ root: 'table-section-left-aligned' }}>
@@ -137,7 +137,9 @@ class CartTable extends PureComponent {
                         return (
                             <TableRow key={ row.id }>
                                 <TableCell>{ row.type }</TableCell>
-                                <TableCell numeric>{ row.amt } { this.renderEdit(row) }</TableCell>
+                                <TableCell numeric classes={{ root: 'table-min-width-rows' }}>
+                                    { row.amt } { this.renderEdit(row) }
+                                </TableCell>
                                 <TableCell numeric>${ row.unit }</TableCell>
                                 <TableCell numeric>${ this.ccyFormat(row.price) }</TableCell>
                                 <TableCell numeric>
@@ -151,6 +153,7 @@ class CartTable extends PureComponent {
                     }) }
 
                     <TableRow>
+                        <TableCell rowSpan={ 3 } />
                         <TableCell rowSpan={ 3 } />
                         <TableCell colSpan={ 2 }>Subtotal</TableCell>
                         <TableCell numeric>${ this.ccyFormat(this.state.invoiceSubtotal) }</TableCell>
