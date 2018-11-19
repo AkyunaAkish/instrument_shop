@@ -1,4 +1,4 @@
-import { ADD_TO_CART, FETCH_CART, REMOVE_FROM_CART } from '../actions/types';
+import { ADD_TO_CART, FETCH_CART, REMOVE_FROM_CART, UPDATE_BAGEL_AMOUNT } from '../actions/types';
 
 const initialState = {
     cart: {}
@@ -19,9 +19,18 @@ export default function (state = initialState , action) {
             return { cart: newBagelState };
 
         case REMOVE_FROM_CART:
-            console.log('actionremove', action)
             if(newBagelState[action.payload.bagel.type].amt) {
                 newBagelState[action.payload.bagel.type].amt -= (action.payload.amt || 0);
+            }
+            
+            window.localStorage.bagelCart = JSON.stringify({ cart: newBagelState });
+            return { cart: newBagelState };
+
+        case UPDATE_BAGEL_AMOUNT:
+            if(newBagelState[action.payload.bagel.type]) {
+                newBagelState[action.payload.bagel.type].amt = action.payload.amt;
+            } else {
+                newBagelState[action.payload.bagel.type] = { ...action.payload.bagel, amt: action.payload.amt };
             }
             
             window.localStorage.bagelCart = JSON.stringify({ cart: newBagelState });

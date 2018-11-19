@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
+import updateBagelAmount from '../../../actions/updateBagelAmount';
 import removeFromCart from '../../../actions/removeFromCart';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -16,6 +17,13 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -25,6 +33,20 @@ const styles = theme => ({
   table: {
     minWidth: 700
   },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
 });
 
 class CartTable extends PureComponent {
@@ -33,7 +55,10 @@ class CartTable extends PureComponent {
         invoiceSubtotal: 0,
         invoiceTaxes: 0,
         invoiceTotal: 0,
-        taxRate: 0
+        taxRate: 0,
+        dialogOpen: false,
+        dialogItem: {},
+        dialogQuantity: null
     }
 
     componentDidMount() {
@@ -94,7 +119,11 @@ class CartTable extends PureComponent {
     }
 
     handleEdit(row) {
-        console.log('Handle Edit', row);
+        this.setState({ 
+            dialogOpen: true,
+            dialogItem: row,
+            dialogQuantity: row.amt 
+        });
     }
 
     renderEdit(row) {
@@ -113,6 +142,19 @@ class CartTable extends PureComponent {
         // check if cart is empty and
         // redirect if cart has become empty
         this.props.handleEmptyCart();
+    }
+
+    handleChange = name => event => {
+        this.setState({
+          [name]: +event.target.value || '',
+        });
+    }
+
+    handleUpdate() {
+        this.props.updateBagelAmount(this.state.dialogItem, this.state.dialogQuantity);
+        this.setState({
+            dialogOpen: false
+        });
     }
 
     render() {
@@ -171,9 +213,40 @@ class CartTable extends PureComponent {
                     </TableRow>
                 </TableBody>
                 </Table>
+
+                <Dialog open={ this.state.dialogOpen }
+                        classes={{ root: 'large-text-dialog' }}
+                        onClose={ () => this.setState({ dialogOpen: false }) }
+                        aria-labelledby='alert-dialog-title'
+                        aria-describedby='alert-dialog-description'>
+                    <DialogTitle id='alert-dialog-title'>
+                        { `Update ${this.state.dialogItem.type} Quantity` }
+                    </DialogTitle>
+
+                    <DialogContent>
+                        <TextField label='Number'
+                                   value={ this.state.dialogQuantity }
+                                   onChange={ this.handleChange('dialogQuantity') }
+                                   type='number'
+                                   className={ classes.textField }
+                                   margin='normal'
+                                   variant='filled' />
+                    </DialogContent>
+
+                    <DialogActions>
+                        <Button onClick={ () => this.handleUpdate() } 
+                                color='primary'
+                                disabled={ this.state.dialogQuantity == this.state.dialogItem.amt || !Number(this.state.dialogQuantity) }>
+                            Update
+                        </Button>
+                        <Button onClick={ () => this.setState({ dialogOpen: false }) } color='primary' autoFocus>
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Paper>
         );
     }
 }
 
-export default connect(null, { removeFromCart })(withStyles(styles)(withRouter(CartTable)));
+export default withStyles(styles)(connect(null, { updateBagelAmount, removeFromCart })(withStyles(styles)(withRouter(CartTable))));
