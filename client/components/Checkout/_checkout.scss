@@ -1,60 +1,13 @@
 .checkout-container {
     width: 90% !important;
     margin: 0 auto !important;
-    margin-top: 15px !important;
+    margin-top: 90px !important;
     padding-bottom: 15px !important;
     max-width: 1000px !important;
 
     @media (max-width: 745px) {
         & {
             max-width: none !important;
-        }
-    }
-
-    .checkout-header-text {
-        text-shadow: 2px 2px 2px rgba(70, 62, 63, 0.5) !important;
-        margin-top: 65px;
-    }
-
-    .checkout-paper { 
-        width: 97% !important;
-        overflow-y: scroll !important;
-        overflow-x: hidden !important;
-        margin: 0 auto !important;
-        margin-top: 20px !important;
-        margin-bottom: 20px !important;
-        background-color: rgb(253,244,220) !important;
-        text-align: center !important;
-        display: inline-block !important;
-
-        &::-webkit-scrollbar { 
-          display: none !important; 
-        }
-
-        .checkout-field {
-            color: $dark;
-            width: 50%;
-            margin-top: 15px !important;
-            float: left;
-
-            input {
-                width: 85% !important;
-                margin: 0 auto !important;
-            }
-
-            @media (max-width: 515px) { 
-                & {
-                   display: block !important;
-                   width: 100% !important;
-                   float: none !important;
-                }
-            }
-        }
-    }
-
-    @media (max-width: 1113px) { 
-        & {
-            margin-top: 70px !important;
         }
     }
 }

@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import Button from '@material-ui/core/Button';
+
 import addToCart from '../../actions/addToCart';
 import removeFromCart from '../../actions/removeFromCart';
 
@@ -33,10 +35,26 @@ class Cart extends PureComponent {
     render() {
         return (
             <div className='cart-container'>
-                <h1>Shopping Cart</h1>
+                <div className='margin-bottom-lg'>
+                    <Button variant='contained' 
+                            classes={{ root: 'dark-btn' }}
+                            onClick={ () => this.props.history.push('/') }>
+                        Back
+                    </Button>
+                </div>
                 
+                <h1>Shopping Cart</h1>
+
                 <CartTable cart={ this.props.cart || {} } 
                            handleEmptyCart={ () => this.handleEmptyCart() } />
+
+                <div className='margin-top-lg'>
+                    <Button variant='contained' 
+                            classes={{ root: 'dark-btn' }}
+                            onClick={ () => this.props.history.push('/checkout') }>
+                        Proceed to Checkout
+                    </Button>
+                </div>
             </div>
         );
     }
