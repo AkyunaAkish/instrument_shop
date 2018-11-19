@@ -2,14 +2,15 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
+
 import { Thumbnail } from 'react-bootstrap';
 
 import addToCart from '../../actions/addToCart';
 import removeFromCart from '../../actions/removeFromCart';
 
-import AddToCartIcon from 'material-ui/svg-icons/action/add-shopping-cart';
 import RemoveFromCartIcon from 'material-ui/svg-icons/action/remove-shopping-cart';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 class BagelGrid extends PureComponent {
     constructor(props) {
@@ -38,12 +39,12 @@ class BagelGrid extends PureComponent {
                     <h5>{ `$${bagel.price.toFixed(2)}` } { this.renderAmountInCart(bagel) }</h5>
 
                     <div>
-                        <RaisedButton className='bagel-item-btn'
-                                      label={ `Add to Cart ` }
-                                      backgroundColor='rgb(70,62,63)'
-                                      style={{ marginRight: 10 }}
-                                      icon={ <AddToCartIcon style={{ fill: 'rgb(89,146,43)' }} /> }
-                                      onClick={ () => this.props.addToCart(bagel, 1) } />
+                        <Button variant='contained' 
+                                classes={{ root: 'bagel-item-btn' }}
+                                onClick={ () => this.props.addToCart(bagel, 1) }>
+                                <ShoppingCartIcon className='small-icon' />
+                                Add to Cart
+                        </Button>
                     </div>
                 </Thumbnail>
             );

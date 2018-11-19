@@ -34,6 +34,7 @@ class Cart extends PureComponent {
         return (
             <div className='cart-container'>
                 <h1>Shopping Cart</h1>
+                
                 <CartTable cart={ this.props.cart || {} } 
                            handleEmptyCart={ () => this.handleEmptyCart() } />
             </div>

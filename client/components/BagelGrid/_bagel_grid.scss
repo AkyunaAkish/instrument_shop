@@ -10,6 +10,12 @@
         width: 350px;
         height: 340px;
         background-color: $yellowish_white;
+        
+        .bagel-item-btn {
+            background-color: $dark !important;
+            color: $tan !important;
+            font-size: 11px !important;
+        }
     } 
 
      @media (min-width: 1910px) { 
