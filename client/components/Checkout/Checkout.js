@@ -7,6 +7,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import Paper from '@material-ui/core/Paper';
+
 const styles = theme => ({
     root: {
       width: '90%',
@@ -112,38 +114,39 @@ class CheckoutStepper extends PureComponent {
             <div className={ `${classes.root} checkout-container` }>
                 <div className='margin-bottom-lg'>
                     <Button variant='contained' 
-                            classes={{ root: 'dark-btn' }}
+                            classes={{ root: 'dark-btn dark-btn-md' }}
                             onClick={ () => this.props.history.push('/cart') }>
                         Back
                     </Button>
                 </div>
 
                 <h1>Checkout</h1>
+                <Paper>
+                    <Stepper activeStep={ activeStep } classes={{ root: 'stepper' }}>
+                        { steps.map((label, index) => {
+                            const props = {};
+                            const labelProps = {};
+                            
+                            if (this.isStepOptional(index)) {
+                                labelProps.optional = <Typography variant='caption'>Optional</Typography>;
+                            }
 
-                <Stepper activeStep={ activeStep } classes={{ root: 'stepper' }}>
-                    { steps.map((label, index) => {
-                        const props = {};
-                        const labelProps = {};
-                        
-                        if (this.isStepOptional(index)) {
-                            labelProps.optional = <Typography variant='caption'>Optional</Typography>;
-                        }
+                            if (this.isStepSkipped(index)) {
+                                props.completed = false;
+                            }
+                            
+                            let stepClass = activeStep == index ? 'active-step' : 'inactive-step';
 
-                        if (this.isStepSkipped(index)) {
-                            props.completed = false;
-                        }
-                        
-                        let stepClass = activeStep == index ? 'active-step' : 'inactive-step';
-
-                        return (
-                            <Step key={ label } 
-                                  { ...props } 
-                                  classes={{ root: stepClass, completed: 'completed-step' }}>
-                                <StepLabel { ...labelProps }>{ label }</StepLabel>
-                            </Step>
-                        );
-                    }) }
-                </Stepper>
+                            return (
+                                <Step key={ label } 
+                                    { ...props } 
+                                    classes={{ root: stepClass, completed: 'completed-step' }}>
+                                    <StepLabel { ...labelProps }>{ label }</StepLabel>
+                                </Step>
+                            );
+                        }) }
+                    </Stepper>
+                </Paper>
 
                 <div>
                     { activeStep === steps.length ? (

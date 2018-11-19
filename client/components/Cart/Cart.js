@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import addToCart from '../../actions/addToCart';
 import removeFromCart from '../../actions/removeFromCart';
 
+import CheckIcon from '@material-ui/icons/CheckCircleOutline';
+
 import CartTable from './components/CartTable';
 
 class Cart extends PureComponent {
@@ -37,12 +39,12 @@ class Cart extends PureComponent {
             <div className='cart-container'>
                 <div className='margin-bottom-lg'>
                     <Button variant='contained' 
-                            classes={{ root: 'dark-btn' }}
+                            classes={{ root: 'dark-btn dark-btn-md' }}
                             onClick={ () => this.props.history.push('/') }>
                         Back
                     </Button>
                 </div>
-                
+
                 <h1>Shopping Cart</h1>
 
                 <CartTable cart={ this.props.cart || {} } 
@@ -50,8 +52,9 @@ class Cart extends PureComponent {
 
                 <div className='margin-top-lg'>
                     <Button variant='contained' 
-                            classes={{ root: 'dark-btn' }}
+                            classes={{ root: 'dark-btn dark-btn-lg' }}
                             onClick={ () => this.props.history.push('/checkout') }>
+                            <CheckIcon className='green-fill' />
                         Proceed to Checkout
                     </Button>
                 </div>

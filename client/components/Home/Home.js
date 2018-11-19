@@ -40,6 +40,21 @@ class Home extends PureComponent {
                     type: 'Jalapeno',
                     img: '/images/ya_quddus_bagels_logo.jpg',
                     price: 5.99
+                },
+                {
+                    type: 'Jalapeno Chedder',
+                    img: '/images/ya_quddus_bagels_logo.jpg',
+                    price: 5.99
+                },
+                {
+                    type: 'Cinnamon Raisin',
+                    img: '/images/ya_quddus_bagels_logo.jpg',
+                    price: 5.99
+                },
+                {
+                    type: 'Blueberry',
+                    img: '/images/ya_quddus_bagels_logo.jpg',
+                    price: 5.99
                 }
             ]
         };

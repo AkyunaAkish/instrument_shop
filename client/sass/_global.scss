@@ -171,6 +171,14 @@ body {
     font-size: 11px !important;
 }
 
+.dark-btn-md {
+    font-size: 15px !important;
+}
+
+.dark-btn-lg {
+    font-size: 20px !important;
+}
+
 .margin-right-sm {
     margin-right: 5px;
 }
@@ -246,4 +254,9 @@ body {
             color: $tan !important;
         }
     }
+}
+
+.green-fill {
+    color: $green !important;
+    fill: $green !important;
 }
