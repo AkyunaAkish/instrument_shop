@@ -9,6 +9,11 @@ import Typography from '@material-ui/core/Typography';
 
 import Paper from '@material-ui/core/Paper';
 
+import ContactForm from './components/ContactForm/ContactForm';
+import DeliveryForm from './components/DeliveryForm/DeliveryForm';
+import PaymentForm from './components/PaymentForm/PaymentForm';
+import FinalReview from './components/FinalReview/FinalReview';
+
 const styles = theme => ({
     root: {
       width: '90%',
@@ -33,13 +38,11 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <button>Yo1</button>;
+      return <ContactForm />;
     case 1:
-        return <button>Yo2</button>;
+        return <DeliveryForm />;
     case 2:
-        return <button>Yo3</button>;
-    default:
-        return <button>Yo4</button>;
+        return <PaymentForm />;
   }
 }
 
@@ -121,6 +124,7 @@ class CheckoutStepper extends PureComponent {
                 </div>
 
                 <h1>Checkout</h1>
+
                 <Paper>
                     <Stepper activeStep={ activeStep } classes={{ root: 'stepper' }}>
                         { steps.map((label, index) => {
@@ -151,9 +155,7 @@ class CheckoutStepper extends PureComponent {
                 <div>
                     { activeStep === steps.length ? (
                         <div>
-                            <Typography className={ classes.instructions }>
-                                All steps completed - you&quot;re finished
-                            </Typography>
+                            <FinalReview />
 
                             <Button onClick={ this.handleReset } 
                                     variant='outlined'

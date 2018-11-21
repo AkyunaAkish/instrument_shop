@@ -6,6 +6,10 @@
 @import '../components/BagelGrid/bagel_grid';
 @import '../components/Reviews/reviews';
 @import '../components/Cart/cart';
-@import '../components/Checkout/checkout';
 @import '../components/Contact/contact';
 @import '../components/CustomSnackBar/CustomSnackBar';
+@import '../components/Checkout/checkout';
+@import '../components/Checkout/components/ContactForm/ContactForm';
+@import '../components/Checkout/components/DeliveryForm/DeliveryForm';
+@import '../components/Checkout/components/PaymentForm/PaymentForm';
+@import '../components/Checkout/components/FinalReview/FinalReview';
