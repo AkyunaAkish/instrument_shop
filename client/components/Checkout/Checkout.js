@@ -111,15 +111,17 @@ class CheckoutStepper extends PureComponent {
     }
 
     nextButtonDisabled() {
-        // TODO:
-        // disable next button based on redux
-        // data for the particular step
-        // also, the reducer for checkout needs to
-        // update which sections are valid/invalid
-         
-        console.log('state', this.state);
-        console.log('props', this.props);
-        return false;
+        let disable = false;
+
+        if(this.state.activeStep === 0 && !this.props.contactDetailsValid) {
+            disable = true;
+        } else if(this.state.activeStep === 1 && !this.props.deliveryDetailsValid) {
+            disable = true;
+        } else if(this.state.activeStep === 2 && !this.props.paymentDetailsValid) {
+            disable = true;
+        }
+
+        return disable;
     }
 
     render() {
@@ -200,7 +202,7 @@ class CheckoutStepper extends PureComponent {
 
                                 <Button variant='contained'
                                         color='primary'
-                                        classes={{ root: 'dark-btn' }}
+                                        classes={{ root: 'dark-btn', disabled: 'disabled-btn' }}
                                         onClick={ this.handleNext }
                                         disabled={ this.nextButtonDisabled() }
                                         className={ classes.button }>

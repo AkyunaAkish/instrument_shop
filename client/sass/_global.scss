@@ -171,6 +171,16 @@ body {
     font-size: 11px !important;
 }
 
+.disabled-btn {
+    background-color: $grey !important;
+    color: $white !important;
+    font-size: 11px !important;
+    
+    &:hover {
+        cursor: not-allowed !important;
+    }
+}
+
 .dark-btn-md {
     font-size: 15px !important;
 }
