@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const webpackMerge = require('webpack-merge');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const commonConfig = require('./webpack.common.js');
@@ -22,7 +24,7 @@ module.exports = webpackMerge(commonConfig, {
         contentBase: './client',
         proxy: {
             '*': {
-                target: 'http://localhost:3000',
+                target: `http://localhost:${process.env.PORT}`,
                 secure: false
             }
         }

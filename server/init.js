@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const app = require('./server.js');
 const debug = require('debug')('ya_quddus:server');
 const http = require('http');
