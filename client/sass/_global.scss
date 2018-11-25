@@ -270,3 +270,14 @@ body {
     color: $green !important;
     fill: $green !important;
 }
+
+.input-lg {
+    font-size: 20px !important;
+    * {
+        font-size: 20px !important;
+    }
+
+    input {
+        max-width: 300px !important;
+    }
+}
